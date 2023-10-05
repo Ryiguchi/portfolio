@@ -1,0 +1,147 @@
+@use "/sass/vars"
+@use "/sass/mixins"
+
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400;700;800&family=Inter:wght@400;500;700;800&display=swap')
+
+:root 
+  font-family: 'Inter'
+
+
+* 
+  box-sizing: border-box
+  padding: 0
+  margin: 0
+
+html
+  max-width: 100vw
+  background-color: vars.$background_color
+  font-size: 62.5%
+
+body
+  width: 100%
+  max-width: 128rem
+  margin: 0 auto
+  display: flex
+  justify-content: space-between
+  gap: vars.$sp_4
+  padding: 0 vars.$sp_12
+
+a 
+  color: inherit
+  text-decoration: none
+  cursor: pointer
+
+ul
+  list-style: none
+  text-transform: uppercase
+
+h1
+    font-size: vars.$fs_10
+    font-weight: 600
+    color: vars.$text_white
+    letter-spacing: -.2px
+
+h2
+  color: vars.$text_white
+  font-weight: 400
+  font-size: vars.$fs_6
+
+h3
+  color: vars.$text_white
+  font-weight: 500
+  font-size: vars.$fs_4
+
+h4
+  @include mixins.navStyle
+  font-size: vars.$fs_4
+  font-weight: 400
+  letter-spacing: .2px
+
+p
+  font-size: vars.$fs_4
+  color: vars.$text_gray_light
+  line-height: 1.6
+  letter-spacing: .2px
+
+.section
+  display: flex
+  flex-direction: column
+  gap: vars.$sp_10
+  padding-top: vars.$sp_13
+
+.section_items
+  position: relative
+  display: flex
+  flex-direction: column
+  gap: vars.$sp_10
+
+  &:hover 
+    .item
+      opacity: 40%
+
+  .item
+    position: relative
+    transition: .3s
+
+    .item_inside_wrapper
+      display: flex
+      align-content: flex-start
+      gap: vars.$sp_4
+      width: 100%
+
+    .item_image_wrapper
+      flex-basis: 25%
+
+    .item_image
+      height: min-content
+      width: 100%
+      border: 1px solid rgba(226, 232, 240, 0.1)
+      border-radius: 5px
+
+      img 
+        width: 100%
+        height: 100%
+
+    .item_icon 
+      @include mixins.icon-styles
+      align-self: flex-end
+
+    .item_title
+      display: flex
+      gap: vars.$sp_1
+
+    .content
+      display: flex
+      flex-direction: column
+      gap: vars.$sp_4
+      flex-basis: 75%
+
+    h4
+      margin-top: vars.$sp_1
+
+    .item_overlay
+      position: absolute
+      top: 0
+      left: 0
+      width: calc( 100%  + 7rem )
+      height: calc( 100%  + 4rem )
+      background-color: rgba(255, 255, 255, .05)
+      border-radius: 7px
+      transform: translate(-3.5rem, -2.5rem)
+      transition: .3s
+      opacity: 0
+
+    &:hover
+      opacity: 100%
+
+      .item_title h3, .item_icon
+        color: vars.$color_teal
+      .item_icon
+        transform: translate(5px, -5px)
+      .item_overlay
+        opacity: 100
+      .item_image
+        border: 1px solid rgba(226, 232, 240, .4)
+      
+  
+    

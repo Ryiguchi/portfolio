@@ -1,0 +1,21 @@
+@use "/sass/vars"
+@use "/sass/mixins"
+
+.wrapper
+  display: flex
+  gap: vars.$sp_1
+  width: fit-content
+
+  h3
+    padding-bottom: 2px
+    border-bottom: 1px solid rgba(0, 0, 0, 0)
+
+  .icon
+    @include mixins.icon-styles
+    align-self: center
+  
+  &:hover
+    h3
+      border-bottom: 1px solid vars.$color_teal
+    .icon
+      transform: translateX(7px)
