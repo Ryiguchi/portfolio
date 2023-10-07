@@ -1,0 +1,26 @@
+@use 'app/lib/sass/vars'
+
+.header
+  display: flex
+  justify-content: space-between
+  align-content: center
+  width: 100%
+  padding: vars.$sp_8
+  border-bottom: 1px solid vars.$text_gray_light
+
+  nav
+    display: flex
+    align-content: center
+    flex-wrap: wrap
+
+  ul
+    display: flex
+    gap: vars.$sp_8
+    
+
+  li
+    color: vars.$text_gray_light
+    font-size: vars.$fs_6
+    transition: .3s
+    &:hover
+      color: vars.$color_teal

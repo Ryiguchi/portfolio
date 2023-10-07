@@ -1,5 +1,5 @@
-@use "/sass/vars"
-@use "/sass/mixins"
+@use "/app/lib/sass/vars"
+@use "/app/lib/sass/mixins"
 
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400;700;800&family=Inter:wght@400;500;700;800&display=swap')
 
@@ -19,12 +19,6 @@ html
 
 body
   width: 100%
-  max-width: 128rem
-  margin: 0 auto
-  display: flex
-  justify-content: space-between
-  gap: vars.$sp_4
-  padding: 0 vars.$sp_12
 
 a 
   color: inherit
@@ -42,9 +36,7 @@ h1
     letter-spacing: -.2px
 
 h2
-  color: vars.$text_white
-  font-weight: 400
-  font-size: vars.$fs_6
+  @include mixins.heading_2
 
 h3
   color: vars.$text_white
@@ -58,10 +50,38 @@ h4
   letter-spacing: .2px
 
 p
-  font-size: vars.$fs_4
-  color: vars.$text_gray_light
-  line-height: 1.6
-  letter-spacing: .2px
+  @include mixins.paragraph
+
+button
+  border: none
+  cursor: pointer
+  font-size: vars.$fs_6
+  text-transform: uppercase
+  font-weight: 600
+  padding: vars.$sp_3 vars.$sp_4
+  background-color: vars.$text_gray_light
+  color: vars.$background_color
+  border-radius: 8px
+  transition: .3s
+  border: 1px solid vars.$background_color
+  &:hover
+    color: vars.$color_teal
+    background-color: vars.$background_color
+    border: 1px solid vars.$color_teal
+
+label
+  @include mixins.heading_2
+
+input
+  height: 4rem
+
+input, textarea
+  background-color: vars.$text_gray_light
+  border-radius: 5px
+  border: none
+  padding: vars.$sp_1 vars.$sp_2
+  @include mixins.paragraph
+  color: vars.$background_color
 
 .section
   display: flex
@@ -143,5 +163,8 @@ p
       .item_image
         border: 1px solid rgba(226, 232, 240, .4)
       
-  
+.admin-page-wrapper
+  width: 60rem
+  margin: 0 auto
+  padding: 10rem 0
     
