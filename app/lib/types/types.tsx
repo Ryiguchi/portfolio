@@ -14,9 +14,9 @@ export interface ICertificateData {
   url: string;
 }
 
-export interface IAboutData {
+export type IAboutData = {
   text: string[];
-}
+};
 
 export interface IProjectData {
   image: string;
@@ -32,4 +32,10 @@ export interface IProjectDataOptional {
   description?: string;
   skills?: string[];
   url?: string;
+}
+
+export interface IContentData {
+  certs: ICertificateData[];
+  about: string[];
+  projects: IProjectData[];
 }

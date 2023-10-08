@@ -1,5 +1,6 @@
-import type { FC } from 'react';
 import styles from './SkillsList.module.sass';
+
+import type { FC } from 'react';
 
 type SkillsListProps = {
   skills: string[];

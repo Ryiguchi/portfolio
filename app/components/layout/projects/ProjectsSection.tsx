@@ -1,8 +1,8 @@
-import SectionLink from '@/app/components/common/SectionLink';
 import Project from './Project';
-import styles from './ProjectSection.module.sass';
-import { IProjectData } from '@/app/lib/types/types';
+import SectionLink from '@/app/components/common/SectionLink';
+
 import type { FC } from 'react';
+import type { IProjectData } from '@/app/lib/types/types';
 
 type Props = {
   projects: IProjectData[];

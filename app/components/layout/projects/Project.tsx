@@ -1,9 +1,10 @@
 import Image from 'next/image';
-import type { FC } from 'react';
 
 import SkillsList from '@/app/components/common/SkillsList';
 import ListTitle from '@/app/components/common/ListTitle';
-import { IProjectData } from '@/app/lib/types/types';
+
+import type { FC } from 'react';
+import type { IProjectData } from '@/app/lib/types/types';
 
 type Props = {
   project: IProjectData;

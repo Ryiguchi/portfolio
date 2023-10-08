@@ -1,8 +1,10 @@
 import ListTitle from '@/app/components/common/ListTitle';
 import SkillsList from '@/app/components/common/SkillsList';
-import type { FC } from 'react';
+
 import styles from './Course.module.sass';
-import { ICertificateData } from '@/app/lib/types/types';
+
+import type { FC } from 'react';
+import type { ICertificateData } from '@/app/lib/types/types';
 
 type Props = {
   cert: ICertificateData;

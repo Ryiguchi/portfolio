@@ -1,7 +1,7 @@
-import User from '@/.next/models/userModel';
+import User from '../../../models/userModel';
 import type { TRouteHandler } from '@/app/lib/types/server';
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { sendResponseError } from '@/utils/helpers/api.helpers';
+import { sendResponseError } from '../../../lib/utils/helpers/api.helpers';
 import { hashPassword } from '@/app/lib/utils/helpers/auth.helpers';
 
 export const POST: TRouteHandler = async (req, res) => {

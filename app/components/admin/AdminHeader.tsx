@@ -1,20 +1,21 @@
 'use client';
 
+import { useContext } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 
 import styles from './AdminHeader.module.sass';
 
-import type { Dispatch, FC, SetStateAction } from 'react';
-import { EPages } from '@/app/admin/page';
+import type { FC } from 'react';
+import AdminPageContext, { EPages } from '@/store/adminPage.context';
 
-type Props = {
-  handleNavigate: (page: EPages) => void;
-};
-
-const AdminHeader: FC<Props> = ({ handleNavigate }) => {
+const AdminHeader: FC = () => {
   const { data: session, status } = useSession();
-  console.log(session, status);
+  const { setCurrentPage } = useContext(AdminPageContext);
+
+  const handleNavigate = (page: EPages) => {
+    setCurrentPage(page);
+  };
 
   return (
     <header className={styles.header}>
@@ -25,9 +26,6 @@ const AdminHeader: FC<Props> = ({ handleNavigate }) => {
           </li>
           <li onClick={() => handleNavigate(EPages.CERT)}>
             <a>add certificate</a>
-          </li>
-          <li onClick={() => handleNavigate(EPages.SKILL)}>
-            <a>add skill</a>
           </li>
           <li onClick={() => handleNavigate(EPages.ABOUT)}>
             <a>add about</a>

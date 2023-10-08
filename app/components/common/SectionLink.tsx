@@ -1,7 +1,8 @@
-import type { FC } from 'react';
 import { MdArrowForward } from 'react-icons/md';
 
 import styles from './SectionLink.module.sass';
+
+import type { FC } from 'react';
 
 type SectionLinkProps = {
   text: string;

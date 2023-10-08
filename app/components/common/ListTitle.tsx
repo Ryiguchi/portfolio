@@ -1,5 +1,6 @@
-import type { FC } from 'react';
 import { MdArrowOutward } from 'react-icons/md';
+
+import type { FC } from 'react';
 
 type listTitleProps = {
   title: string;

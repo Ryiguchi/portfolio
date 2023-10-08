@@ -13,18 +13,27 @@ const FlashLight: FC = () => {
   const [distanceFromTop, setDistanceFromTop] = useState(0);
 
   useEffect(() => {
-    document.addEventListener('mousemove', event => {
+    const handleMouseMove = (event: MouseEvent) => {
       const mouseX = event.clientX;
       const mouseY = event.clientY;
 
       setXOffset(mouseX);
       setYOffset(mouseY);
-    });
+    };
 
-    document.addEventListener('scroll', event => {
+    const handleScroll = () => {
       setDistanceFromTop(window.scrollY);
-    });
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('scroll', handleScroll);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('scroll', handleScroll);
+    };
   }, []);
+
   return (
     <div
       style={{

@@ -1,11 +1,15 @@
 'use client';
 
-import type { FC } from 'react';
 import { SessionProvider } from 'next-auth/react';
-
-import './globals.sass';
 import type { Session } from 'next-auth';
 
+import FlashLight from '../components/common/FlashLight';
+import Header from '../components/layout/header/Header';
+
+import '../globals.sass';
+import styles from './RootLayout.module.sass';
+
+import type { FC } from 'react';
 // import type { Metadata } from 'next'
 // import { Inter } from 'next/font/google'
 
@@ -29,7 +33,15 @@ const RootLayout: FC<Props> = ({
   return (
     <html lang="en">
       <SessionProvider session={session}>
-        <body>{children}</body>
+        <body>
+          <div className={styles.flashlightWrapper}>
+            <div className={styles.main_wrapper}>
+              <Header />
+              {children}
+              <FlashLight />
+            </div>
+          </div>
+        </body>
       </SessionProvider>
     </html>
   );

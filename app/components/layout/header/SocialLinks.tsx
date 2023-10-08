@@ -1,6 +1,8 @@
-import type { FC } from 'react';
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
+
 import styles from './SocialLinks.module.sass';
+
+import type { FC } from 'react';
 
 const SocialLinks: FC = () => {
   return (
