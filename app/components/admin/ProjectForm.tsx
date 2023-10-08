@@ -1,10 +1,13 @@
 import { useRef } from 'react';
 
-import type { FC, FormEvent } from 'react';
+import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
+import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { postData } from '@/app/lib/utils/helpers/client.helpers';
 
 import styles from './Form.module.sass';
-import { isProjectDataValid } from '@/app/lib/utils/helpers/data-validation.helpers';
-import axios from 'axios';
+
+import type { FC, FormEvent } from 'react';
+import { IProjectData } from '@/app/lib/types/data.types';
 
 const ProjectForm: FC = () => {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
@@ -20,20 +23,23 @@ const ProjectForm: FC = () => {
       image: imageInputRef.current?.value,
       title: titleInputRef.current?.value,
       description: descriptionInputRef.current?.value,
-      skills: skillsInputRef.current?.value.split('**'),
+      skills: formatToArray(skillsInputRef.current?.value),
       url: urlInputRef.current?.value,
     };
 
-    if (!isProjectDataValid(projectData)) {
-      console.log('Invalid Input!');
+    if (!validateData(projectData)) {
+      TODO: console.log('Invalid Input!');
       return;
     }
 
-    try {
-      const response = await axios.post('/api/content/project', projectData);
-    } catch (error) {
-      console.log('Error saving data!');
-    }
+    const response = await postData(
+      '/api/content/project',
+      projectData as IProjectData
+    );
+
+    TODO: response.ok
+      ? console.log('Login successful')
+      : console.log('Login successful');
   };
 
   return (

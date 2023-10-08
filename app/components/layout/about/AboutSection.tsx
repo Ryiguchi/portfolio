@@ -1,7 +1,6 @@
 import styles from './AboutSection.module.sass';
 
 import type { FC } from 'react';
-import type { IAboutData } from '@/app/lib/types/types';
 
 type Props = {
   text: string[];

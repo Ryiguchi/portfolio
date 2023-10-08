@@ -2,33 +2,25 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import axios from 'axios';
 
-import type { FC, FormEvent } from 'react';
+import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { postData } from '@/app/lib/utils/helpers/client.helpers';
+
 import styles from './Form.module.sass';
 
-const addUser = async (userData: { name: string; password: string }) => {
-  try {
-    const response = await axios.post('/api/user/add', userData);
-    console.log('[RESPOPNSE]', response);
-  } catch (error) {
-    console.log(error);
-  }
-};
+import type { FC, FormEvent } from 'react';
+import { IUser } from '@/app/lib/types/data.types';
 
 const LoginForm: FC = () => {
   const [isSignin, setIsSignin] = useState(true);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
+  // If active session, set state to determine if signIn or createUser
   useEffect(() => {
-    if (session) {
-      setIsSignin(false);
-    } else {
-      setIsSignin(true);
-    }
+    session ? setIsSignin(false) : setIsSignin(true);
   }, [session]);
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -37,30 +29,30 @@ const LoginForm: FC = () => {
     const name = nameInputRef.current?.value;
     const password = passwordInputRef.current?.value;
 
-    console.log(name, password);
-
-    if (
-      !name ||
-      !name.trim().length ||
-      !password ||
-      password.trim().length < 8
-    ) {
-      console.log('Invalid Input');
-      return;
-    }
-
     const userData = { name, password };
 
+    if (!validateData(userData)) {
+      TODO: console.log('invalid Data');
+    }
+
     if (isSignin) {
-      console.log('signin');
       const result = await signIn('credentials', {
         redirect: false,
         name,
         password,
       });
-      // console.log(result);
+
+      TODO: result?.ok
+        ? console.log('Login successful')
+        : console.log('Login successful');
     } else {
-      addUser(userData);
+      const response = await postData('api/user', {
+        name,
+        password,
+      } as IUser);
+      TODO: response.ok
+        ? console.log('Login successful')
+        : console.log('Login successful');
     }
   };
 

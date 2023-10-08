@@ -1,10 +1,16 @@
 import { useRef } from 'react';
 
-import type { FC, FormEvent } from 'react';
+import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
+import {
+  validateData,
+  validateString,
+} from '@/app/lib/utils/helpers/data-validation.helpers';
+import { postData } from '@/app/lib/utils/helpers/client.helpers';
 
 import styles from './Form.module.sass';
-import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
-import axios from 'axios';
+
+import type { FC, FormEvent } from 'react';
+import type { ICertificateData } from '@/app/lib/types/data.types';
 
 const CertForm: FC = () => {
   const dateInputRef = useRef<HTMLInputElement | null>(null);
@@ -26,44 +32,27 @@ const CertForm: FC = () => {
     const skills = skillsInputRef.current?.value;
     const url = urlInputRef.current?.value;
 
-    if (
-      !date ||
-      !date.trim().length ||
-      !title ||
-      !title.trim().length ||
-      !issuer ||
-      !issuer.trim().length ||
-      !duration ||
-      !duration.trim().length ||
-      !description ||
-      !description.trim().length ||
-      !skills ||
-      !skills.trim().length ||
-      !url ||
-      !url.trim().length
-    ) {
-      console.log('Invalid input!');
-      return;
-    }
-
-    const skillsArray = formatToArray(skills);
-
     const certFormData = {
       date,
       title,
       issuer,
       duration,
       description,
-      skills: skillsArray,
+      skills: formatToArray(skills),
       url,
     };
 
-    try {
-      const response = await axios.post('/api/content/cert', certFormData);
-      console.log(response);
-    } catch (error) {
-      console.log('Error saving data');
+    if (!validateData(certFormData)) {
+      TODO: console.log('Invalid Data');
     }
+
+    const response = await postData(
+      'api/content/cert',
+      certFormData as ICertificateData
+    );
+
+    // Portal??
+    TODO: response.ok ? console.log('success') : console.log('failed');
   };
 
   return (

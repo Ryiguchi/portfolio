@@ -1,13 +1,16 @@
-import User from '../../../models/userModel';
-import type { TRouteHandler } from '@/app/lib/types/server';
+import User from '../../models/userModel';
+
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { sendResponseError } from '../../../lib/utils/helpers/api.helpers';
+import { sendResponseError } from '../../lib/utils/helpers/api.helpers';
 import { hashPassword } from '@/app/lib/utils/helpers/auth.helpers';
+import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+
+import type { TRouteHandler } from '@/app/lib/types/server';
 
 export const POST: TRouteHandler = async (req, res) => {
   const { name, password } = await req.json();
 
-  if (!name || !name.trim().length || !password || password.trim().length < 8) {
+  if (validateData({ name, password })) {
     return sendResponseError(400, 'Invaild input!');
   }
 
@@ -17,6 +20,8 @@ export const POST: TRouteHandler = async (req, res) => {
     name,
     password: hashedPassword,
   };
+
+  console.log('PROJECTSDATASERVER', userData);
 
   try {
     await connectToDB();

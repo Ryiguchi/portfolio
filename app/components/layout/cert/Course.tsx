@@ -4,7 +4,7 @@ import SkillsList from '@/app/components/common/SkillsList';
 import styles from './Course.module.sass';
 
 import type { FC } from 'react';
-import type { ICertificateData } from '@/app/lib/types/types';
+import type { ICertificateData } from '@/app/lib/types/data.types';
 
 type Props = {
   cert: ICertificateData;

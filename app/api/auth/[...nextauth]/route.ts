@@ -1,11 +1,15 @@
-import User from '@/app/models/userModel';
-import { IUser } from '@/app/lib/types/types';
-import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { verifyPassword } from '@/app/lib/utils/helpers/auth.helpers';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions = {
+import User from '@/app/models/userModel';
+
+import { closeConnection, connectToDB } from '@/app/lib/utils/db';
+import { verifyPassword } from '@/app/lib/utils/helpers/auth.helpers';
+
+import type { IUser } from '@/app/lib/types/data.types';
+import type { AuthOptions, User as AuthUser } from 'next-auth';
+
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       credentials: {
@@ -46,8 +50,7 @@ export const authOptions = {
         closeConnection();
         return {
           name,
-          id: user.id,
-        };
+        } as AuthUser;
       },
     }),
   ],

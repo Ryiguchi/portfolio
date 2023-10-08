@@ -1,7 +1,6 @@
 export interface IUser {
   name: string;
   password: string;
-  id: string;
 }
 
 export interface ICertificateData {
@@ -24,14 +23,6 @@ export interface IProjectData {
   description: string;
   skills: string[];
   url: string;
-}
-
-export interface IProjectDataOptional {
-  image?: string;
-  title?: string;
-  description?: string;
-  skills?: string[];
-  url?: string;
 }
 
 export interface IContentData {

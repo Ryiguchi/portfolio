@@ -1,13 +1,16 @@
-import { TRouteHandler } from '@/app/lib/types/server';
-import { closeConnection, connectToDB } from '@/app/lib/utils/db';
 import About from '@/app/models/aboutModel';
-import { IAboutData } from '@/app/lib/types/types';
+
+import { closeConnection, connectToDB } from '@/app/lib/utils/db';
 import { sendResponseError } from '@/app/lib/utils/helpers/api.helpers';
+import { validateArray } from '@/app/lib/utils/helpers/data-validation.helpers';
+
+import type { TRouteHandler } from '@/app/lib/types/server';
+import type { IAboutData } from '@/app/lib/types/data.types';
 
 export const POST: TRouteHandler = async (req, res) => {
   const { text } = await req.json();
 
-  if (!text || text.length === 0) {
+  if (!validateArray(text)) {
     return sendResponseError(400, 'Invaild input!');
   }
 
@@ -20,11 +23,14 @@ export const POST: TRouteHandler = async (req, res) => {
     );
   }
 
-  await About.create({ text });
+  const aboutDocument = await About.create({ text });
 
   closeConnection();
 
-  return Response.json({ status: 'success' }, { status: 201 });
+  return Response.json(
+    { status: 'success', document: aboutDocument },
+    { status: 201 }
+  );
 };
 
 export const GET: TRouteHandler = async (req, res) => {

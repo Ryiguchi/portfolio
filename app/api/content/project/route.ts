@@ -1,13 +1,13 @@
 import Project from '@/app/models/projectModel';
 import { TRouteHandler } from '@/app/lib/types/server';
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { isProjectDataValid } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
 import { sendResponseError } from '@/app/lib/utils/helpers/api.helpers';
 
 export const POST: TRouteHandler = async (req, res) => {
   const projectData = await req.json();
 
-  if (!isProjectDataValid(projectData)) {
+  if (!validateData(projectData)) {
     return sendResponseError(400, 'Invalid input');
   }
 
@@ -20,11 +20,14 @@ export const POST: TRouteHandler = async (req, res) => {
     );
   }
 
-  await Project.create(projectData);
+  const projectDocument = await Project.create(projectData);
 
   closeConnection();
 
-  return Response.json({ status: 'success' }, { status: 200 });
+  return Response.json(
+    { status: 'success', document: projectDocument },
+    { status: 200 }
+  );
 };
 
 export const GET: TRouteHandler = async (req, res) => {

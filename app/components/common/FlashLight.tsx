@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import type { FC } from 'react';
-
 import styles from './FlashLight.module.sass';
+
+import type { FC } from 'react';
 
 const FlashLight: FC = () => {
   const [xOffset, setXOffset] = useState(0);

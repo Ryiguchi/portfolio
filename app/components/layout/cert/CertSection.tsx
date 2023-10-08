@@ -1,7 +1,7 @@
 import Course from './Course';
 
 import type { FC } from 'react';
-import type { ICertificateData } from '@/app/lib/types/types';
+import type { ICertificateData } from '@/app/lib/types/data.types';
 
 type Props = {
   certs: ICertificateData[];
