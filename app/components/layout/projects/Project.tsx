@@ -16,10 +16,14 @@ const Project: FC<Props> = ({ project }) => {
   return (
     <a href={project.url} target="_blank" className="item">
       <div className="item_inside_wrapper">
-        <div className="item_image_wrapper">
-          <div className="item_image">
-            <Image src={imgUrl} alt={project.title} width={131} height={284} />
-          </div>
+        <div className="item_image">
+          <Image
+            src={imgUrl}
+            alt={project.title}
+            width={131}
+            height={284}
+            style={{ height: 284, width: 131 }}
+          />
         </div>
         <div className="content">
           <ListTitle title={project.title} />

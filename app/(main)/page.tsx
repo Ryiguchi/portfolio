@@ -10,7 +10,7 @@ import styles from './page.module.sass';
 import type { FC } from 'react';
 import type { IContentData } from '../lib/types/data.types';
 
-export const getData = async () => {
+const getData = async () => {
   // Fetch all content from api routes
   const certs = await fetchContent('cert');
   const about = await fetchContent('about');
