@@ -1,3 +1,6 @@
+@use "/app/lib/sass/vars"
+sss
+
 .flashlight
   position: absolute
   top: 0
@@ -5,3 +8,7 @@
   z-index: -5
   width: 100%
   height: 100%
+
+@media (max-width: vars.$breakpoint_medium) 
+  .flashlight
+    display: none

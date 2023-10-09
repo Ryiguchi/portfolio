@@ -2,6 +2,7 @@ import Project from './Project';
 import SectionLink from '@/app/components/common/SectionLink';
 
 import type { FC } from 'react';
+import SectionHeader from '../../common/SectionHeader';
 
 type Props = {
   projects: IProjectData[];
@@ -10,6 +11,7 @@ type Props = {
 const ProjectsSection: FC<Props> = ({ projects }) => {
   return (
     <section className="section" id="projects">
+      <SectionHeader section="projects" />
       <div className="section_items">
         {projects &&
           projects.map(project => (

@@ -1,0 +1,15 @@
+@use '../../lib/sass/vars'
+@use '../../lib/sass/mixins'
+
+.wrapper
+  display: none
+
+@media (max-width: vars.$breakpoint_medium) 
+  .wrapper
+    display: flex
+    height: 6rem
+    h2
+      align-self: center
+      @include mixins.mobile_section_header
+
+  

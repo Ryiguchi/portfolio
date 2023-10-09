@@ -4,6 +4,7 @@ interface IProjectDocument extends mongoose.Document, IProjectData {}
 
 const projectSchema = new mongoose.Schema<IProjectDocument>({
   image: String,
+  desktopImg: String,
   title: String,
   description: String,
   skills: [String],

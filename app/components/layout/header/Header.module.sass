@@ -22,4 +22,20 @@
   h2  
     padding-bottom: vars.$sp_5
   
-  
+@media (max-width: vars.$breakpoint_medium) 
+  .header
+    position: static
+    height: fit-content
+    padding-bottom:  0
+
+    .text
+      margin-bottom: 0
+
+@media (max-width: vars.$breakpoint_small) 
+  .header
+    max-width: 35rem
+    width: fit-content
+    padding-top: vars.$sp_10
+
+    h1
+      font-size: vars.$fs_9

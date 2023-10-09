@@ -11,6 +11,7 @@ import '../../globals.sass';
 
 import type { FC } from 'react';
 import { NotificationContextProvider } from '@/store/notification.context';
+import { inter } from '@/app/lib/utils/helpers/fonts.helpers';
 
 type Props = {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ const RootLayout: FC<Props> = ({
   params: { session, ...params },
 }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.className}>
       <SessionProvider session={session}>
         <AdminPageContextProvider>
           <NotificationContextProvider>

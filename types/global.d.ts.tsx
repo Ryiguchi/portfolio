@@ -27,6 +27,7 @@ declare global {
 
   interface IProjectData {
     image: string;
+    desktopImg: string;
     title: string;
     description: string;
     skills: string[];
@@ -56,6 +57,7 @@ declare global {
 
   interface IProjectDataOptional {
     image?: string;
+    desktopImg?: string;
     title?: string;
     description?: string;
     skills?: string[];

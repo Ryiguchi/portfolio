@@ -1,11 +1,7 @@
 @use "/app/lib/sass/vars"
 @use "/app/lib/sass/mixins"
 
-@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400;700;800&family=Inter:wght@400;500;700;800&display=swap')
-
-:root 
-  font-family: 'Inter'
-
+// :root 
 
 * 
   box-sizing: border-box
@@ -42,6 +38,7 @@ h3
   color: vars.$text_white
   font-weight: 500
   font-size: vars.$fs_4
+  line-height: 1.5
 
 h4
   @include mixins.navStyle
@@ -117,6 +114,9 @@ input, textarea
       border: 1px solid rgba(226, 232, 240, 0.1)
       border-radius: 5px
 
+      .desktop-img
+        display: none
+
 
     .item_icon 
       @include mixins.icon-styles
@@ -164,3 +164,56 @@ input, textarea
   margin: 0 auto
   padding: 10rem 0
     
+
+.sticky
+    top: 0
+    left: 0
+    z-index: 100
+    background-color: vars.$background_header
+    backdrop-filter: blur(7px)
+    padding-left: vars.$sp_10
+    position: fixed
+    width: 100vw
+
+@media (max-width: vars.$breakpoint_medium) 
+  .section
+    gap: 0
+
+    .item_image
+      .mobile-img
+        display: none
+      .desktop-img
+        height: auto
+        width: 25vw
+        display: block !important
+    .item_overlay
+      display: none
+
+  .item_title
+    h3, .item_icon
+      color: vars.$color_teal !important
+    
+
+
+
+@media (max-width: vars.$breakpoint_small) 
+  .sticky
+    padding-left: vars.$sp_6
+
+  .item_inside_wrapper
+    flex-direction: column-reverse
+    gap: vars.$sp_6 !important
+
+  .item_image
+    width: 20rem !important
+    height: auto
+
+  .desktop-img
+    width: 20rem !important
+
+  #certificates
+    .item_inside_wrapper
+      flex-direction: column
+      gap: vars.$sp_3 !important
+
+  

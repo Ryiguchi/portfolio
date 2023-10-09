@@ -7,3 +7,16 @@
     @include mixins.paragraph
     a
       color: vars.$color_teal
+
+@media (max-width: vars.$breakpoint_medium) 
+  .footer
+    margin: vars.$sp_12 0
+    margin-left: calc(25%  + 1rem  )
+    max-width: 50rem
+
+@media (max-width: vars.$breakpoint_small) 
+  .footer
+    margin-bottom:  vars.$sp_8
+    margin-left: 0
+    max-width: 35rem
+    text-align: start
