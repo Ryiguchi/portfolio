@@ -27,8 +27,8 @@ const Nav: FC<NavProps> = ({ navItems }) => {
     if (!elementsToObserve || elementsToObserve.length !== 3) return;
 
     const options = {
-      rootMargin: '-150px',
-      threshold: 0.1,
+      rootMargin: '-200px',
+      threshold: 0.05,
     };
 
     const callback: IntersectionObserverCallback = entries => {

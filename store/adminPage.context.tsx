@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 export enum EPages {
   PROJECT = 'project',
@@ -8,21 +8,17 @@ export enum EPages {
   ABOUT = 'about',
 }
 
-type AdminPageContextType = {
+type TAdminPageContext = {
   currentPage: EPages;
   setCurrentPage: Dispatch<SetStateAction<EPages>>;
 };
 
-const AdminPageContext = createContext<AdminPageContextType>({
+const AdminPageContext = createContext<TAdminPageContext>({
   currentPage: EPages.PROJECT,
   setCurrentPage: () => {},
 });
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export const AdminPageContextProvider: FC<Props> = ({ children }) => {
+export const AdminPageContextProvider: TContextProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(EPages.CERT);
 
   const context = {

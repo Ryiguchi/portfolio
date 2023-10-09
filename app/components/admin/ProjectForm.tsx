@@ -1,15 +1,20 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 
 import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
 import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
 import { postData } from '@/app/lib/utils/helpers/client.helpers';
+
+import NotificationContext from '@/store/notification.context';
 
 import styles from './Form.module.sass';
 
 import type { FC, FormEvent } from 'react';
-import { IProjectData } from '@/app/lib/types/data.types';
+import { ERequestStatus } from '@/types/enums.types';
 
 const ProjectForm: FC = () => {
+  const { setNotification } = useContext(NotificationContext);
+
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const descriptionInputRef = useRef<HTMLTextAreaElement | null>(null);
@@ -18,6 +23,8 @@ const ProjectForm: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setNotification(getContentNotification(ERequestStatus.PENDING));
 
     const projectData = {
       image: imageInputRef.current?.value,
@@ -28,18 +35,17 @@ const ProjectForm: FC = () => {
     };
 
     if (!validateData(projectData)) {
-      TODO: console.log('Invalid Input!');
+      setNotification(
+        getContentNotification(ERequestStatus.ERROR, 'Invalid Data')
+      );
       return;
     }
 
-    const response = await postData(
+    await postData(
       '/api/content/project',
-      projectData as IProjectData
+      projectData as IProjectData,
+      setNotification
     );
-
-    TODO: response.ok
-      ? console.log('Login successful')
-      : console.log('Login successful');
   };
 
   return (

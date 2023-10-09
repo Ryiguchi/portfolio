@@ -1,18 +1,20 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 
 import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
-import {
-  validateData,
-  validateString,
-} from '@/app/lib/utils/helpers/data-validation.helpers';
+import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
 import { postData } from '@/app/lib/utils/helpers/client.helpers';
+import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
+
+import NotificationContext from '@/store/notification.context';
 
 import styles from './Form.module.sass';
 
 import type { FC, FormEvent } from 'react';
-import type { ICertificateData } from '@/app/lib/types/data.types';
+import { ERequestStatus } from '@/types/enums.types';
 
 const CertForm: FC = () => {
+  const { setNotification } = useContext(NotificationContext);
+
   const dateInputRef = useRef<HTMLInputElement | null>(null);
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const issuerInputRef = useRef<HTMLInputElement | null>(null);
@@ -23,6 +25,8 @@ const CertForm: FC = () => {
 
   const submitCertForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setNotification(getContentNotification(ERequestStatus.PENDING));
 
     const date = dateInputRef.current?.value;
     const title = titleInputRef.current?.value;
@@ -43,17 +47,20 @@ const CertForm: FC = () => {
     };
 
     if (!validateData(certFormData)) {
-      TODO: console.log('Invalid Data');
+      setNotification(
+        getContentNotification(ERequestStatus.ERROR, 'Invalid Data')
+      );
+      return;
     }
 
-    const response = await postData(
+    await postData(
       'api/content/cert',
-      certFormData as ICertificateData
+      certFormData as ICertificateData,
+      setNotification
     );
-
-    // Portal??
-    TODO: response.ok ? console.log('success') : console.log('failed');
   };
+
+  // const notification = getContentNotification(requestStatus);
 
   return (
     <form onSubmit={submitCertForm} className={styles.form}>

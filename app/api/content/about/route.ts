@@ -4,23 +4,19 @@ import { closeConnection, connectToDB } from '@/app/lib/utils/db';
 import { sendResponseError } from '@/app/lib/utils/helpers/api.helpers';
 import { validateArray } from '@/app/lib/utils/helpers/data-validation.helpers';
 
-import type { TRouteHandler } from '@/app/lib/types/server';
-import type { IAboutData } from '@/app/lib/types/data.types';
+import { EErrorMessage } from '@/types/enums.types';
 
 export const POST: TRouteHandler = async (req, res) => {
   const { text } = await req.json();
 
   if (!validateArray(text)) {
-    return sendResponseError(400, 'Invaild input!');
+    return sendResponseError(400, EErrorMessage.INPUT);
   }
 
   try {
     await connectToDB();
   } catch (error) {
-    return sendResponseError(
-      500,
-      'There was an error connecting to the database!'
-    );
+    return sendResponseError(500, EErrorMessage.DB);
   }
 
   const aboutDocument = await About.create({ text });
@@ -37,17 +33,14 @@ export const GET: TRouteHandler = async (req, res) => {
   try {
     await connectToDB();
   } catch (error) {
-    return sendResponseError(
-      500,
-      'There was a problem connection to the database'
-    );
+    return sendResponseError(500, EErrorMessage.DB);
   }
 
   const aboutText: IAboutData[] = await About.find().select('-__v -_id');
   closeConnection();
 
   if (!aboutText || aboutText.length === 0) {
-    return sendResponseError(500, 'There was an error retrieving your data!');
+    return sendResponseError(500, EErrorMessage.NOT_FOUND);
   }
 
   return Response.json(

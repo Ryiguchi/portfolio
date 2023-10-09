@@ -2,7 +2,6 @@ import Project from './Project';
 import SectionLink from '@/app/components/common/SectionLink';
 
 import type { FC } from 'react';
-import type { IProjectData } from '@/app/lib/types/data.types';
 
 type Props = {
   projects: IProjectData[];

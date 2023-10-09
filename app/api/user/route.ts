@@ -5,13 +5,13 @@ import { sendResponseError } from '../../lib/utils/helpers/api.helpers';
 import { hashPassword } from '@/app/lib/utils/helpers/auth.helpers';
 import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
 
-import type { TRouteHandler } from '@/app/lib/types/server';
+import { EErrorMessage } from '@/types/enums.types';
 
 export const POST: TRouteHandler = async (req, res) => {
   const { name, password } = await req.json();
 
-  if (validateData({ name, password })) {
-    return sendResponseError(400, 'Invaild input!');
+  if (!validateData({ name, password })) {
+    return sendResponseError(400, EErrorMessage.INPUT);
   }
 
   const hashedPassword = await hashPassword(password);
@@ -21,12 +21,10 @@ export const POST: TRouteHandler = async (req, res) => {
     password: hashedPassword,
   };
 
-  console.log('PROJECTSDATASERVER', userData);
-
   try {
     await connectToDB();
   } catch (error) {
-    throw new Error('There was an error connection to the database!');
+    return sendResponseError(500, EErrorMessage.DB);
   }
 
   const response = await User.create(userData);

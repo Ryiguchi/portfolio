@@ -5,8 +5,8 @@ import User from '@/app/models/userModel';
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
 import { verifyPassword } from '@/app/lib/utils/helpers/auth.helpers';
 
-import type { IUser } from '@/app/lib/types/data.types';
 import type { AuthOptions, User as AuthUser } from 'next-auth';
+import { EErrorMessage } from '@/types/enums.types';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -17,18 +17,14 @@ export const authOptions: AuthOptions = {
       },
 
       async authorize(credentials, req) {
-        console.log('AUTHORIZE');
-
         if (!credentials?.name || !credentials?.password) {
-          throw new Error('Invalid Credentials!');
+          throw new Error(EErrorMessage.CREDENTIALS);
         }
 
         try {
           await connectToDB();
         } catch (error: any) {
-          throw new Error(
-            error.message || 'Therre was a problem connecting to the database!'
-          );
+          throw new Error(error.message || EErrorMessage.DB);
         }
         const { name, password } = credentials;
 
@@ -36,14 +32,14 @@ export const authOptions: AuthOptions = {
 
         if (!user) {
           closeConnection();
-          throw new Error('Could not find user!');
+          throw new Error(EErrorMessage.NO_USER);
         }
 
-        const isValid = verifyPassword(password, user.password);
+        const isValid = await verifyPassword(password, user.password);
 
         if (!isValid) {
           closeConnection();
-          throw new Error('Invalid password!');
+          throw new Error(EErrorMessage.PASSWORD);
         }
 
         closeConnection();

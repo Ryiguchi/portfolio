@@ -1,0 +1,37 @@
+@use "../../lib/sass/vars"
+
+.notification
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: vars.$color_teal
+  padding: 0 vars.$sp_8
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2)
+  position: fixed
+  height: 8rem
+  bottom: 0
+  width: 100%
+  left: 0
+  border-top-right-radius: 0
+  border-top-left-radius: 0
+
+  h2, p
+    color: vars.$background_color
+
+  h2
+    font-size: vars.$fs_7
+
+  p
+    font-size: vars.$fs_6
+
+.success
+  background-color: green
+
+  h2, p
+    color: vars.$text_white
+
+.error
+  background-color: red
+
+  h2, p
+    color: vars.$text_white

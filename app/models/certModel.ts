@@ -1,4 +1,3 @@
-import { ICertificateData } from '@/app/lib/types/data.types';
 import mongoose from 'mongoose';
 
 export interface ICertDocument extends mongoose.Document, ICertificateData {}

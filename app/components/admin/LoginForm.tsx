@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 
 import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
@@ -9,9 +9,13 @@ import { postData } from '@/app/lib/utils/helpers/client.helpers';
 import styles from './Form.module.sass';
 
 import type { FC, FormEvent } from 'react';
-import { IUser } from '@/app/lib/types/data.types';
+import NotificationContext from '@/store/notification.context';
+import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
+import { EErrorMessage, EProviders, ERequestStatus } from '@/types/enums.types';
 
 const LoginForm: FC = () => {
+  const { setNotification } = useContext(NotificationContext);
+
   const [isSignin, setIsSignin] = useState(true);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
@@ -32,27 +36,28 @@ const LoginForm: FC = () => {
     const userData = { name, password };
 
     if (!validateData(userData)) {
-      TODO: console.log('invalid Data');
+      setNotification(
+        getContentNotification(ERequestStatus.ERROR, EErrorMessage.INPUT)
+      );
+      return;
     }
 
     if (isSignin) {
-      const result = await signIn('credentials', {
+      const result = await signIn(EProviders.CREDENTIALS, {
         redirect: false,
-        name,
-        password,
+        ...userData,
       });
 
-      TODO: result?.ok
-        ? console.log('Login successful')
-        : console.log('Login successful');
+      result?.ok
+        ? setNotification(getContentNotification(ERequestStatus.SUCCESS))
+        : setNotification(
+            getContentNotification(
+              ERequestStatus.ERROR,
+              result?.error ? result.error : undefined
+            )
+          );
     } else {
-      const response = await postData('api/user', {
-        name,
-        password,
-      } as IUser);
-      TODO: response.ok
-        ? console.log('Login successful')
-        : console.log('Login successful');
+      postData('api/user', userData as IUser, setNotification);
     }
   };
 

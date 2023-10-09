@@ -1,4 +1,3 @@
-import { IProjectData } from '@/app/lib/types/data.types';
 import mongoose from 'mongoose';
 
 interface IProjectDocument extends mongoose.Document, IProjectData {}

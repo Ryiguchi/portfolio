@@ -4,7 +4,6 @@ import SkillsList from '@/app/components/common/SkillsList';
 import ListTitle from '@/app/components/common/ListTitle';
 
 import type { FC } from 'react';
-import type { IProjectData } from '@/app/lib/types/data.types';
 
 type Props = {
   project: IProjectData;

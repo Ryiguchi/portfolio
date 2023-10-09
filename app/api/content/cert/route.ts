@@ -4,23 +4,19 @@ import { closeConnection, connectToDB } from '@/app/lib/utils/db';
 import { sendResponseError } from '@/app/lib/utils/helpers/api.helpers';
 import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
 
-import type { TRouteHandler } from '@/app/lib/types/server';
-import type { ICertificateData } from '@/app/lib/types/data.types';
+import { EErrorMessage } from '@/types/enums.types';
 
 export const POST: TRouteHandler = async (req, res) => {
   const certData = await req.json();
 
   if (!validateData(certData)) {
-    return sendResponseError(400, 'Invalid Input');
+    return sendResponseError(400, EErrorMessage.INPUT);
   }
 
   try {
     await connectToDB();
   } catch (error) {
-    return sendResponseError(
-      500,
-      'There was a problem connection to the database'
-    );
+    return sendResponseError(500, EErrorMessage.DB);
   }
 
   const certDocument = await Cert.create(certData);
@@ -36,17 +32,14 @@ export const GET: TRouteHandler = async (req, res) => {
   try {
     await connectToDB();
   } catch (error) {
-    return sendResponseError(
-      500,
-      'There was a problem connection to the database'
-    );
+    return sendResponseError(500, EErrorMessage.DB);
   }
 
   const certs: ICertificateData[] = await Cert.find().select('-__v -_id');
   closeConnection();
 
   if (!certs || certs.length === 0) {
-    return sendResponseError(500, 'There was an error retrieving your data!');
+    return sendResponseError(500, EErrorMessage.NOT_FOUND);
   }
 
   return Response.json({ status: 'success', data: certs }, { status: 200 });

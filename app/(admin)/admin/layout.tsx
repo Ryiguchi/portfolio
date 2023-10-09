@@ -10,6 +10,7 @@ import { AdminPageContextProvider } from '@/store/adminPage.context';
 import '../../globals.sass';
 
 import type { FC } from 'react';
+import { NotificationContextProvider } from '@/store/notification.context';
 
 type Props = {
   children: React.ReactNode;
@@ -26,10 +27,13 @@ const RootLayout: FC<Props> = ({
     <html lang="en">
       <SessionProvider session={session}>
         <AdminPageContextProvider>
-          <body>
-            <AdminHeader />
-            {children}
-          </body>
+          <NotificationContextProvider>
+            <body>
+              <AdminHeader />
+              {children}
+              <div id="notification"></div>
+            </body>
+          </NotificationContextProvider>
         </AdminPageContextProvider>
       </SessionProvider>
     </html>

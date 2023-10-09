@@ -8,7 +8,6 @@ import { fetchContent } from '../lib/utils/helpers/client.helpers';
 import styles from './page.module.sass';
 
 import type { FC } from 'react';
-import type { IContentData } from '../lib/types/data.types';
 
 const getData = async () => {
   // Fetch all content from api routes
