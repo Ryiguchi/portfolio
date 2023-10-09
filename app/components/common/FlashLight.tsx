@@ -37,7 +37,7 @@ const FlashLight: FC = () => {
   return (
     <div
       style={{
-        backgroundImage: `radial-gradient(600px at ${xOffset}px ${
+        background: `radial-gradient(600px at ${xOffset}px ${
           yOffset + distanceFromTop
         }px, rgba(29, 78, 216, 0.15), transparent 80% )`,
       }}

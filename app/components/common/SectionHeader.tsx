@@ -35,7 +35,7 @@ const SectionHeader: FC<Props> = ({ section }) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [section]);
 
   return (
     <div
