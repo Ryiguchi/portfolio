@@ -69,7 +69,7 @@ const Nav: FC<NavProps> = ({ navItems }) => {
       <ul>
         {navItems.map(item => (
           <li key={item.id} onClick={() => handleScrollToSection(item.id)}>
-            <a>
+            <div>
               <span
                 className={
                   item.id === currentSection ? styles.selected_line : ''
@@ -82,7 +82,7 @@ const Nav: FC<NavProps> = ({ navItems }) => {
               >
                 {item.text}
               </span>
-            </a>
+            </div>
           </li>
         ))}
       </ul>

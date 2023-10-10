@@ -28,6 +28,20 @@ export const metadata: Metadata = {
   ],
   creator: 'Ryan Iguchi',
   applicationName: 'Ryan Iguchi - Portfolio',
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  icons: {
+    icon: '/icons/favicon-32.png',
+    shortcut: '/icons/shortcut-144.png',
+    apple: '/icons/apple-180.png',
+  },
 };
 
 export const revalidate = 3600;
