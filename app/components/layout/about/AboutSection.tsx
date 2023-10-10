@@ -1,3 +1,5 @@
+'use client';
+
 import SectionHeader from '../../common/SectionHeader';
 import styles from './AboutSection.module.sass';
 

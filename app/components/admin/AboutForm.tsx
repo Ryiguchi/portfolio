@@ -4,8 +4,8 @@ import { useContext, useRef } from 'react';
 
 import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
 import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
-import { postData } from '@/app/lib/utils/helpers/client.helpers';
 import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
 import NotificationContext from '@/store/notification.context';
 

@@ -28,23 +28,3 @@ export const POST: TRouteHandler = async (req, res) => {
     { status: 201 }
   );
 };
-
-export const GET: TRouteHandler = async (req, res) => {
-  try {
-    await connectToDB();
-  } catch (error) {
-    return sendResponseError(500, EErrorMessage.DB);
-  }
-
-  const aboutText: IAboutData[] = await About.find().select('-__v -_id');
-  closeConnection();
-
-  if (!aboutText || aboutText.length === 0) {
-    return sendResponseError(500, EErrorMessage.NOT_FOUND);
-  }
-
-  return Response.json(
-    { status: 'success', data: aboutText[0].text },
-    { status: 200 }
-  );
-};

@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 
 import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
-import { postData } from '@/app/lib/utils/helpers/client.helpers';
+import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
 import styles from './Form.module.sass';
 

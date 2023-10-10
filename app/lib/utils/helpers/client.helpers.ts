@@ -1,49 +1,35 @@
-import { getContentNotification } from './notification.helpers';
+import About from '@/app/models/aboutModel';
+import Cert from '@/app/models/certModel';
+import Project from '@/app/models/projectModel';
 
-import { ERequestStatus } from '@/types/enums.types';
-import type { SetStateAction } from 'react';
+import { EErrorMessage } from '@/types/enums.types';
+import { closeConnection, connectToDB } from '../db';
 
 export const baseUrl = process.env.BASE_URL;
 
-type TFetchContent = (
-  contentName: string
-) => Promise<ICertificateData[] | string[] | IProjectData[]> | never;
+export const getContent = async () => {
+  await connectToDB();
 
-export const fetchContent: TFetchContent = async contentName => {
-  const response = await fetch(`${baseUrl}/api/content/${contentName}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const aboutText: IAboutData[] = await About.find().select('-__v -_id');
+  const certs: ICertificateData[] = await Cert.find().select('-__v -_id');
+  const projects = await Project.find().select('-__v -_id');
 
-  const data = await response.json();
-  return data.data;
-};
+  closeConnection();
 
-type TPostContent = (
-  contentName: string,
-  content: IAboutData | ICertificateData | IProjectData | IUser,
-  setNotification: React.Dispatch<SetStateAction<INotification | null>>
-) => void;
+  if (
+    !aboutText ||
+    aboutText.length === 0 ||
+    !certs ||
+    certs.length === 0 ||
+    !projects ||
+    projects.length === 0
+  ) {
+    throw new Error(EErrorMessage.NOT_FOUND);
+  }
 
-export const postData: TPostContent = async (
-  path,
-  content,
-  setNotification
-) => {
-  const response = await fetch(`${baseUrl}/${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify(content),
-  });
-
-  const data = await response.json();
-
-  data.status === 'success'
-    ? setNotification(getContentNotification(ERequestStatus.SUCCESS))
-    : setNotification(
-        getContentNotification(ERequestStatus.ERROR, data.message)
-      );
+  return {
+    about: aboutText[0].text,
+    certs,
+    projects,
+  };
 };

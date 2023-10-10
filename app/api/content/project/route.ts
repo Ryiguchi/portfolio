@@ -28,20 +28,3 @@ export const POST: TRouteHandler = async (req, res) => {
     { status: 200 }
   );
 };
-
-export const GET: TRouteHandler = async (req, res) => {
-  try {
-    await connectToDB();
-  } catch (error) {
-    return sendResponseError(500, EErrorMessage.DB);
-  }
-
-  const projects = await Project.find().select('-__v -_id');
-  closeConnection();
-
-  if (!projects || projects.length === 0) {
-    sendResponseError(500, EErrorMessage.NOT_FOUND);
-  }
-
-  return Response.json({ status: 'success', data: projects }, { status: 200 });
-};

@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { FC } from 'react';
 import { ERequestStatus } from './enums.types';
+import { Document } from 'mongoose';
 
 export {};
 
 declare global {
+  interface IAboutModel extends Document {
+    text: string[];
+  }
   // CONTENT
   interface IUser {
     name: string;
