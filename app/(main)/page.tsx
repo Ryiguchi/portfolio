@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     'Javascript',
     'NodeJS',
     'Stockholm',
-    '',
   ],
   authors: [
     { name: 'Ryan Iguchi', url: 'https://www.linkedin.com/in/ryan-iguchi/' },
@@ -34,7 +33,6 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const getData = async () => {
-  // Fetch all content from api routes
   const certs = await fetchContent('cert');
   const about = await fetchContent('about');
   const projects = await fetchContent('project');

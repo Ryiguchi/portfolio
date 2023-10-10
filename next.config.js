@@ -15,7 +15,7 @@ module.exports = phase => {
   return {
     env: {
       NEXTAUTH_URL: 'http://localhost:3000',
-      BASE_URL: 'https://ryaniguchi.com',
+      BASE_URL: 'http://localhost:3000',
     },
   };
 };

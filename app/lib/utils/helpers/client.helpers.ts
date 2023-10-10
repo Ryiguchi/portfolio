@@ -4,7 +4,6 @@ import { ERequestStatus } from '@/types/enums.types';
 import type { SetStateAction } from 'react';
 
 export const baseUrl = process.env.BASE_URL;
-export const projectImagesUrl = `${baseUrl}/images/projects`;
 
 type TFetchContent = (
   contentName: string
