@@ -5,8 +5,6 @@ import Project from '@/app/models/projectModel';
 import { EErrorMessage } from '@/types/enums.types';
 import { closeConnection, connectToDB } from '../db';
 
-export const baseUrl = process.env.BASE_URL;
-
 export const getContent = async () => {
   await connectToDB();
 
