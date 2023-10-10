@@ -6,6 +6,12 @@
   gap: vars.$sp_1
   width: fit-content
 
+  &:hover
+    h3
+      border-bottom: 1px solid vars.$color_teal
+    .icon
+      transform: translateX(7px)
+
   h3
     padding-bottom: 2px
     border-bottom: 1px solid rgba(0, 0, 0, 0)
@@ -15,14 +21,10 @@
     @include mixins.icon-styles
     align-self: center
   
-  &:hover
-    h3
-      border-bottom: 1px solid vars.$color_teal
-    .icon
-      transform: translateX(7px)
 
 @media (max-width: vars.$breakpoint_medium) 
   .wrapper
     margin-top: vars.$sp_7
+    
     h3, .icon
       color: vars.$color_teal

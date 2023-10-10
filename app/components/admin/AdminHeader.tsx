@@ -12,7 +12,7 @@ import type { FC } from 'react';
 
 const AdminHeader: FC = () => {
   const { data: session, status } = useSession();
-  const { setCurrentPage } = useContext(AdminPageContext);
+  const { currentPage, setCurrentPage } = useContext(AdminPageContext);
 
   const handleNavigate = (page: EPages) => {
     setCurrentPage(page);
@@ -23,16 +23,22 @@ const AdminHeader: FC = () => {
       <nav>
         <ul>
           <li onClick={() => handleNavigate(EPages.PROJECT)}>
-            <a>add project</a>
+            <a className={currentPage === 'project' ? styles.active : ''}>
+              project
+            </a>
           </li>
           <li onClick={() => handleNavigate(EPages.CERT)}>
-            <a>add certificate</a>
+            <a className={currentPage === 'cert' ? styles.active : ''}>
+              certificate
+            </a>
           </li>
           <li onClick={() => handleNavigate(EPages.ABOUT)}>
-            <a>add about</a>
+            <a className={currentPage === 'about' ? styles.active : ''}>
+              about
+            </a>
           </li>
           <li>
-            <Link href={'/'}>back to portfolio</Link>
+            <Link href={'/'}>back</Link>
           </li>
         </ul>
       </nav>

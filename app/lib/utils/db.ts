@@ -5,9 +5,7 @@ import { EErrorMessage } from '@/types/enums.types';
 
 export const connectToDB = async () => {
   try {
-    await mongoose.connect(
-      `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.3ypc1zy.mongodb.net/data?retryWrites=true&w=majority`
-    );
+    await mongoose.connect(process.env.MONGODB_URL!);
   } catch (error) {
     throw new Error(EErrorMessage.DB);
   }

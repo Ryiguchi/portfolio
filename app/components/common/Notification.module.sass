@@ -24,14 +24,24 @@
   p
     font-size: vars.$fs_6
 
-.success
-  background-color: green
+  &.success
+    background-color: green
 
-  h2, p
-    color: vars.$text_white
+    h2, p
+      color: vars.$text_white
 
-.error
-  background-color: red
+  &.error
+    background-color: red
 
-  h2, p
-    color: vars.$text_white
+    h2, p
+      color: vars.$text_white
+
+@media (max-width: vars.$breakpoint_small) 
+  .notification
+    height: 5rem
+    
+    h2
+      font-size: vars.$fs_5
+
+    p
+      font-size: vars.$fs_4

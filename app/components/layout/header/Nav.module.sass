@@ -13,15 +13,18 @@
     display: flex
     flex-direction: column
 
-    
     li
       padding: 1.2rem 0
+      
+      &:hover
+        span:last-child
+          color: vars.$text_white
+        span:first-child 
+          @include hover-styles-line
 
       a
         display: flex
         gap: vars.$sp_6
-
-        
 
         .selected_item
           color: vars.$text_white
@@ -35,13 +38,6 @@
           &.selected_line
             @include hover-styles-line
 
-      &:hover
-        span:last-child
-          color: vars.$text_white
-        span:first-child 
-          @include hover-styles-line
-
-        
 @media (max-width: vars.$breakpoint_medium) 
   .nav
     display: none

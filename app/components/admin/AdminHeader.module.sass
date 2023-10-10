@@ -13,14 +13,37 @@
     align-content: center
     flex-wrap: wrap
 
-  ul
-    display: flex
-    gap: vars.$sp_8
+    ul
+      display: flex
+      gap: vars.$sp_8
     
+      li
+        color: vars.$text_gray_light
+        font-size: vars.$fs_6
+        transition: .3s
+        
+        a
+          text-align: center
 
-  li
-    color: vars.$text_gray_light
-    font-size: vars.$fs_6
-    transition: .3s
-    &:hover
-      color: vars.$color_teal
+          &:hover, &.active
+            color: vars.$color_teal
+
+@media (max-width: vars.$breakpoint_small) 
+  .header
+    flex-direction: column
+    align-content: center
+    gap: vars.$sp_4
+
+    nav
+      justify-content: center
+
+@media (max-width: vars.$breakpoint_xsmall) 
+  .header
+    padding: vars.$sp_5
+
+    nav ul
+      gap: vars.$sp_5
+      
+      li
+        font-size: vars.$fs_3
+    

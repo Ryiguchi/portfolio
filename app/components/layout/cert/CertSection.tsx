@@ -1,6 +1,8 @@
 import SectionHeader from '../../common/SectionHeader';
 import Course from './Course';
 
+import '../section.sass';
+
 import type { FC } from 'react';
 
 type Props = {

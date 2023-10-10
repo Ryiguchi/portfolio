@@ -4,7 +4,6 @@ import type { Dispatch, SetStateAction } from 'react';
 export enum EPages {
   PROJECT = 'project',
   CERT = 'cert',
-  SKILL = 'skill',
   ABOUT = 'about',
 }
 
@@ -19,7 +18,7 @@ const AdminPageContext = createContext<TAdminPageContext>({
 });
 
 export const AdminPageContextProvider: TContextProvider = ({ children }) => {
-  const [currentPage, setCurrentPage] = useState(EPages.CERT);
+  const [currentPage, setCurrentPage] = useState(EPages.PROJECT);
 
   const context = {
     currentPage,

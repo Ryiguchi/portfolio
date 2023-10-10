@@ -35,12 +35,12 @@ const AboutForm: FC = () => {
       return;
     }
 
-    await postData('api/content/about', aboutData, setNotification);
+    postData('api/content/about', aboutData, setNotification);
   };
 
   return (
     <form onSubmit={submitAboutForm} className={styles.form}>
-      <h2>{`Separate paragraphs with a "<p>"`}</h2>
+      <h2>{`Separate paragraphs with "**"`}</h2>
       <div>
         <label htmlFor="text">Description</label>
         <textarea ref={textInputRef} id="text" rows={20} />

@@ -10,17 +10,17 @@
   height: 100vh
   padding: vars.$sp_12 0
 
+  .text
+    max-width: 40rem
+    margin-bottom: vars.$sp_11
 
-.text
-  max-width: 40rem
-  margin-bottom: vars.$sp_11
+    h1
+      padding-bottom: vars.$sp_3
 
-  h1
-    padding-bottom: vars.$sp_3
-    a
-      cursor: default
-  h2  
-    padding-bottom: vars.$sp_5
+      a
+        cursor: default
+    h2  
+      padding-bottom: vars.$sp_5
   
 @media (max-width: vars.$breakpoint_medium) 
   .header
@@ -37,5 +37,5 @@
     width: fit-content
     padding-top: vars.$sp_10
 
-    h1
+    .text h1
       font-size: vars.$fs_9

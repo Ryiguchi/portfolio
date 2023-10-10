@@ -1,0 +1,128 @@
+@use "/app/lib/sass/vars"
+@use "/app/lib/sass/mixins"
+
+.section
+  display: flex
+  flex-direction: column
+  gap: vars.$sp_10
+  padding-top: vars.$sp_13
+
+  .section_items
+    position: relative
+    display: flex
+    flex-direction: column
+    gap: vars.$sp_10
+
+    .item
+      position: relative
+      transition: .3s
+
+      .item_inside_wrapper
+        display: flex
+        align-content: flex-start
+        gap: vars.$sp_4
+        width: 100%
+
+        .item_image
+          flex-basis: 25%
+          height: min-content
+          width: 100%
+          border: 1px solid rgba(226, 232, 240, 0.1)
+          border-radius: 5px
+
+          .desktop-img
+            display: none
+
+        .content
+          display: flex
+          flex-direction: column
+          gap: vars.$sp_4
+          flex-basis: 75%
+
+          h4
+            margin-top: vars.$sp_1
+
+          .item_title
+            display: flex
+            gap: vars.$sp_1
+
+            .item_icon 
+              @include mixins.icon-styles
+              align-self: flex-end
+
+      .item_overlay
+        position: absolute
+        top: 0
+        left: 0
+        width: calc( 100%  + 7rem )
+        height: calc( 100%  + 4rem )
+        background-color: rgba(255, 255, 255, .05)
+        border-radius: 7px
+        transform: translate(-3.5rem, -2.5rem)
+        transition: .3s
+        opacity: 0
+        @include mixins.item_shadow
+
+    
+.section
+  &:hover 
+    .item
+      opacity: 40%
+
+.section .item
+  &:hover
+    opacity: 100%
+
+    .item_title h3, .item_icon
+      color: vars.$color_teal
+    .item_icon
+      transform: translate(5px, -5px)
+    .item_image
+      border: 1px solid rgba(226, 232, 240, .4)
+    .item_overlay
+      opacity: 100
+
+@media (max-width: vars.$breakpoint_medium) 
+  .section
+    gap: 0
+    
+    &:hover 
+      .item
+        opacity: 100%
+
+    .section_items .item 
+      .item_overlay
+        display: none
+
+      .item_inside_wrapper 
+        .item_image
+          .mobile-img
+            display: none
+
+          .desktop-img
+            height: auto
+            width: 25vw
+            display: block
+
+        .content
+          .item_title
+            h3, .item_icon
+              color: vars.$color_teal
+
+@media (max-width: vars.$breakpoint_small) 
+  .section .section_items .item
+    .item_inside_wrapper
+      flex-direction: column-reverse
+      gap: vars.$sp_6 
+
+      .item_image
+        width: 20rem
+        height: auto
+
+        .desktop-img
+          width: 20rem
+
+  #certificates .section_items .item
+    .item_inside_wrapper
+      flex-direction: column
+      gap: vars.$sp_3
