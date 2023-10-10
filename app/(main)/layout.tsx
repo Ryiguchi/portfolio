@@ -2,6 +2,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import type { Session } from 'next-auth';
+import { Analytics } from '@vercel/analytics/react';
 
 import FlashLight from '../components/common/FlashLight';
 import Header from '../components/layout/header/Header';
@@ -32,6 +33,7 @@ const RootLayout: FC<Props> = ({
               <Header />
               {children}
               <FlashLight />
+              <Analytics />
             </div>
           </div>
         </body>
