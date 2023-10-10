@@ -7,7 +7,7 @@ module.exports = phase => {
     return {
       env: {
         NEXTAUTH_URL: 'http://localhost:3000',
-        NEXTAUTH_SECRET: 'this_is_a_super_long_secret_password_for_next_auth',
+        BASE_URL: 'http://localhost:3000',
       },
     };
   }
@@ -15,7 +15,7 @@ module.exports = phase => {
   return {
     env: {
       NEXTAUTH_URL: 'http://localhost:3000',
-      NEXTAUTH_SECRET: 'this_is_a_super_long_secret_password_for_next_auth',
+      BASE_URL: 'https://ryaniguchi.com',
     },
   };
 };

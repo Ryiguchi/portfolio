@@ -1,4 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
+import 'dotenv/config';
 
 import User from '@/app/models/userModel';
 
@@ -49,4 +50,5 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  secret: process.env.AUTH_SECRET,
 };

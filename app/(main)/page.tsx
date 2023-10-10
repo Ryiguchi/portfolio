@@ -31,6 +31,8 @@ export const metadata: Metadata = {
   applicationName: 'Ryan Iguchi - Portfolio',
 };
 
+export const revalidate = 3600;
+
 const getData = async () => {
   // Fetch all content from api routes
   const certs = await fetchContent('cert');
