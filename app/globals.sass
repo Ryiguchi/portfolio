@@ -79,6 +79,9 @@ input, textarea
   @include mixins.paragraph
   color: vars.$background_color
 
+  &::placeholder
+    color: vars.$text_placeholder
+
 .sticky
     top: 0
     left: 0
@@ -88,6 +91,9 @@ input, textarea
     padding-left: vars.$sp_10
     position: fixed
     width: 100vw
+    
+    h2
+      color: vars.$color_teal
 
 @media (max-width: vars.$breakpoint_small) 
   .sticky

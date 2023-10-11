@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import SectionHeader from '../../common/SectionHeader';
 
 type Props = {
-  projects: IProjectData[];
+  projects: TProjectData[];
 };
 
 const ProjectsSection: FC<Props> = ({ projects }) => {

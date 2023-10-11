@@ -1,7 +1,6 @@
 import { useContext, useRef } from 'react';
 
-import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
-import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { formatToArray } from '@/app/lib/utils/helpers/format.helpers';
 import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
 import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
@@ -11,11 +10,13 @@ import styles from './Form.module.sass';
 
 import type { FC, FormEvent } from 'react';
 import { ERequestStatus } from '@/types/enums.types';
+import { ZProjectDataValidator } from '@/types/zod';
 
 const ProjectForm: FC = () => {
   const { setNotification } = useContext(NotificationContext);
 
-  const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const mobileImageInputRef = useRef<HTMLInputElement | null>(null);
+  const desktopImageInputRef = useRef<HTMLInputElement | null>(null);
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const descriptionInputRef = useRef<HTMLTextAreaElement | null>(null);
   const skillsInputRef = useRef<HTMLInputElement | null>(null);
@@ -27,32 +28,34 @@ const ProjectForm: FC = () => {
     setNotification(getContentNotification(ERequestStatus.PENDING));
 
     const projectData = {
-      image: imageInputRef.current?.value,
+      mobileImg: mobileImageInputRef.current?.value,
+      desktopImg: desktopImageInputRef.current?.value,
       title: titleInputRef.current?.value,
       description: descriptionInputRef.current?.value,
       skills: formatToArray(skillsInputRef.current?.value),
       url: urlInputRef.current?.value,
     };
 
-    if (!validateData(projectData)) {
-      setNotification(
-        getContentNotification(ERequestStatus.ERROR, 'Invalid Data')
-      );
-      return;
-    }
+    try {
+      const projectDataParsed = ZProjectDataValidator.parse(projectData);
 
-    postData(
-      '/api/content/project',
-      projectData as IProjectData,
-      setNotification
-    );
+      postData('/api/content/project', projectDataParsed, setNotification);
+    } catch (error: any) {
+      setNotification(
+        getContentNotification(ERequestStatus.ERROR, error.issues[0].message)
+      );
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div>
-        <label htmlFor="image">Image URL</label>
-        <input ref={imageInputRef} type="text" id="image" />
+        <label htmlFor="image">Mobile image name</label>
+        <input ref={mobileImageInputRef} type="text" id="image" />
+      </div>
+      <div>
+        <label htmlFor="image">Desktop image name</label>
+        <input ref={desktopImageInputRef} type="text" id="image" />
       </div>
       <div>
         <label htmlFor="title">Title</label>

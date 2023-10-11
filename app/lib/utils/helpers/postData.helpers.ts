@@ -7,7 +7,7 @@ export const baseUrl = process.env.BASE_URL;
 
 type TPostContent = (
   contentName: string,
-  content: IAboutData | ICertificateData | IProjectData | IUser,
+  content: TAboutData | TCertificateData | TProjectData | TUserData,
   setNotification: React.Dispatch<SetStateAction<INotification | null>>
 ) => void;
 
@@ -16,19 +16,23 @@ export const postData: TPostContent = async (
   content,
   setNotification
 ) => {
-  const response = await fetch(`${baseUrl}/${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify(content),
-  });
+  try {
+    const response = await fetch(`${baseUrl}/${path}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(content),
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  data.status === 'success'
-    ? setNotification(getContentNotification(ERequestStatus.SUCCESS))
-    : setNotification(
-        getContentNotification(ERequestStatus.ERROR, data.message)
-      );
+    if (data.status === 'failed') throw new Error(data.message);
+
+    setNotification(getContentNotification(ERequestStatus.SUCCESS));
+  } catch (error: any) {
+    setNotification(
+      getContentNotification(ERequestStatus.ERROR, error.message)
+    );
+  }
 };

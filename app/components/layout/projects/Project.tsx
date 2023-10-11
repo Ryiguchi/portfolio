@@ -6,11 +6,11 @@ import ListTitle from '@/app/components/common/ListTitle';
 import type { FC } from 'react';
 
 type Props = {
-  project: IProjectData;
+  project: TProjectData;
 };
 
 const Project: FC<Props> = ({ project }) => {
-  const imgUrl = `/images/projects/${project.image}`;
+  const imgUrl = `/images/projects/${project.mobileImg}`;
   const desktopImg = `/images/projects/${project.desktopImg}`;
 
   return (

@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-export interface ICertDocument extends mongoose.Document, ICertificateData {}
-
 const certSchema = new mongoose.Schema<ICertDocument>({
   date: {
     type: String,

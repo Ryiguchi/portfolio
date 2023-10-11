@@ -2,9 +2,8 @@
 
 import { useContext, useRef } from 'react';
 
-import { formatToArray } from '@/app/lib/utils/helpers/admin.helpers';
 import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
-import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { formatToArray } from '@/app/lib/utils/helpers/format.helpers';
 import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
 import NotificationContext from '@/store/notification.context';
@@ -13,6 +12,7 @@ import styles from './Form.module.sass';
 
 import type { FC, FormEvent } from 'react';
 import { ERequestStatus } from '@/types/enums.types';
+import { ZAboutDataValidator } from '@/types/zod';
 
 const AboutForm: FC = () => {
   const { setNotification } = useContext(NotificationContext);
@@ -24,18 +24,19 @@ const AboutForm: FC = () => {
 
     setNotification(getContentNotification(ERequestStatus.PENDING));
 
-    const text = textInputRef.current?.value;
+    const textInput = textInputRef.current?.value;
 
-    const aboutData = { text: formatToArray(text) };
+    const aboutData = { text: formatToArray(textInput) };
 
-    if (!validateData(aboutData)) {
+    try {
+      const aboutDataParsed = ZAboutDataValidator.parse(aboutData);
+
+      postData('api/content/about', aboutDataParsed, setNotification);
+    } catch (error: any) {
       setNotification(
-        getContentNotification(ERequestStatus.ERROR, 'Invalid Data')
+        getContentNotification(ERequestStatus.ERROR, error.issues[0].message)
       );
-      return;
     }
-
-    postData('api/content/about', aboutData, setNotification);
   };
 
   return (

@@ -1,12 +1,15 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
-export interface IAboutModel extends Document {
-  text: string[];
-}
-
-const aboutSchema = new mongoose.Schema<IAboutModel>({
+const aboutSchema = new mongoose.Schema<IAboutDocument>({
   text: {
     type: [String],
+    validate: {
+      validator: function (value: string[]) {
+        // Ensure "text" is an array with at least 4 items
+        return Array.isArray(value) && value.length >= 4;
+      },
+      message: 'There must be at least 4 paragraphs in the "text" field.',
+    },
   },
 });
 

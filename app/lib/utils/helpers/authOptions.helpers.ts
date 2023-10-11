@@ -4,10 +4,11 @@ import 'dotenv/config';
 import User from '@/app/models/userModel';
 
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { verifyPassword } from '@/app/lib/utils/helpers/auth.helpers';
 
 import type { AuthOptions, User as AuthUser } from 'next-auth';
 import { EErrorMessage } from '@/types/enums.types';
+import { ZUserDataValidator } from '@/types/zod';
+import { verifyPassword } from './bcrypt.helpers';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -18,31 +19,43 @@ export const authOptions: AuthOptions = {
       },
 
       async authorize(credentials, req) {
-        if (!credentials?.name || !credentials?.password) {
+        // Verify and type credentials
+        let credentialsParsed;
+        try {
+          credentialsParsed = ZUserDataValidator.parse(credentials);
+        } catch (error) {
           throw new Error(EErrorMessage.CREDENTIALS);
         }
 
+        const { name, password } = credentialsParsed;
+
+        // Connect to DB
         try {
           await connectToDB();
         } catch (error: any) {
-          throw new Error(error.message || EErrorMessage.DB);
+          throw new Error(error.message || EErrorMessage.CONNECT);
         }
-        const { name, password } = credentials;
 
-        const user: IUser | null = await User.findOne({ name });
+        // Find, verify and type user
+        const user = await User.findOne({ name });
 
-        if (!user) {
+        let userParsed;
+        try {
+          userParsed = ZUserDataValidator.parse(user);
+        } catch (error) {
           closeConnection();
           throw new Error(EErrorMessage.NO_USER);
         }
 
-        const isValid = await verifyPassword(password, user.password);
+        // Check password
+        const isValid = await verifyPassword(password, userParsed.password);
 
         if (!isValid) {
           closeConnection();
           throw new Error(EErrorMessage.PASSWORD);
         }
 
+        // Return user
         closeConnection();
         return {
           name,

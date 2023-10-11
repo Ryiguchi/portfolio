@@ -1,29 +1,28 @@
 import Cert from '@/app/models/certModel';
 
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { sendResponseError } from '@/app/lib/utils/helpers/api.helpers';
-import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
 
-import { EErrorMessage } from '@/types/enums.types';
+import { sendResponseError } from '@/app/lib/utils/helpers/error-handling.helpers';
 
-export const POST: TRouteHandler = async (req, res) => {
+import { ZCertDataValidator } from '@/types/zod';
+
+export const POST: TRouteHandler = async req => {
   const certData = await req.json();
 
-  if (!validateData(certData)) {
-    return sendResponseError(400, EErrorMessage.INPUT);
-  }
-
   try {
+    const certDataParsed = ZCertDataValidator.parse(certData);
+
     await connectToDB();
-  } catch (error) {
-    return sendResponseError(500, EErrorMessage.DB);
+
+    const certDocument: TCertificateData = await Cert.create(certDataParsed);
+
+    closeConnection();
+
+    return Response.json(
+      { status: 'success', document: certDocument },
+      { status: 201 }
+    );
+  } catch (error: any) {
+    return sendResponseError(error);
   }
-
-  const certDocument = await Cert.create(certData);
-  closeConnection();
-
-  return Response.json(
-    { status: 'success', document: certDocument },
-    { status: 201 }
-  );
 };

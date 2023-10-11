@@ -5,11 +5,7 @@ import styles from './AboutSection.module.sass';
 
 import type { FC } from 'react';
 
-type Props = {
-  text: string[];
-};
-
-const AboutSection: FC<Props> = ({ text }) => {
+const AboutSection: FC<TAboutData> = ({ text }) => {
   return (
     <section className={styles.about_section} id="about">
       <SectionHeader section="about" />

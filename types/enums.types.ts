@@ -5,7 +5,9 @@ export enum ERequestStatus {
 }
 
 export enum EErrorMessage {
-  DB = 'There was an error connecting to the database.',
+  DATA = 'There was an error retrieving the data.',
+  CONNECT = 'There was an error connecting to the database.',
+  DISCONNECT = 'There was an error disconnecting from the database.',
   INPUT = 'Invalid input.',
   NOT_FOUND = 'Not found.',
   NO_USER = 'User not found.',

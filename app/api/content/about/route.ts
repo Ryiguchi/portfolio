@@ -1,30 +1,28 @@
 import About from '@/app/models/aboutModel';
 
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { sendResponseError } from '@/app/lib/utils/helpers/api.helpers';
-import { validateArray } from '@/app/lib/utils/helpers/data-validation.helpers';
 
-import { EErrorMessage } from '@/types/enums.types';
+import { sendResponseError } from '@/app/lib/utils/helpers/error-handling.helpers';
 
-export const POST: TRouteHandler = async (req, res) => {
-  const { text } = await req.json();
+import { ZAboutDataValidator } from '@/types/zod';
 
-  if (!validateArray(text)) {
-    return sendResponseError(400, EErrorMessage.INPUT);
-  }
+export const POST: TRouteHandler = async req => {
+  const aboutData = await req.json();
 
   try {
+    const aboutDataParsed = ZAboutDataValidator.parse(aboutData);
+
     await connectToDB();
-  } catch (error) {
-    return sendResponseError(500, EErrorMessage.DB);
+
+    const aboutDocument: TAboutData = await About.create(aboutDataParsed);
+
+    closeConnection();
+
+    return Response.json(
+      { status: 'success', document: aboutDocument },
+      { status: 201 }
+    );
+  } catch (error: any) {
+    return sendResponseError(error);
   }
-
-  const aboutDocument = await About.create({ text });
-
-  closeConnection();
-
-  return Response.json(
-    { status: 'success', document: aboutDocument },
-    { status: 201 }
-  );
 };

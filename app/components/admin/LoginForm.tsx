@@ -3,7 +3,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 
-import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
 import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
 import styles from './Form.module.sass';
@@ -11,7 +10,9 @@ import styles from './Form.module.sass';
 import type { FC, FormEvent } from 'react';
 import NotificationContext from '@/store/notification.context';
 import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
-import { EErrorMessage, EProviders, ERequestStatus } from '@/types/enums.types';
+import { EProviders, ERequestStatus } from '@/types/enums.types';
+import { ZUserDataValidator } from '@/types/zod';
+import { z } from 'zod';
 
 const LoginForm: FC = () => {
   const { setNotification } = useContext(NotificationContext);
@@ -35,29 +36,34 @@ const LoginForm: FC = () => {
 
     const userData = { name, password };
 
-    if (!validateData(userData)) {
+    try {
+      const userDataParsed = ZUserDataValidator.parse(userData);
+
+      if (isSignin) {
+        const result = await signIn(EProviders.CREDENTIALS, {
+          redirect: false,
+          ...userDataParsed,
+        });
+
+        if (result?.ok) {
+          setNotification(getContentNotification(ERequestStatus.SUCCESS));
+          return;
+        } else {
+          throw new Error(result?.error ? result.error : undefined);
+        }
+      }
+
+      if (!isSignin) {
+        postData('api/user', userDataParsed, setNotification);
+        return;
+      }
+    } catch (error: any) {
       setNotification(
-        getContentNotification(ERequestStatus.ERROR, EErrorMessage.INPUT)
+        getContentNotification(
+          ERequestStatus.ERROR,
+          error instanceof z.ZodError ? error.issues[0].message : error.message
+        )
       );
-      return;
-    }
-
-    if (isSignin) {
-      const result = await signIn(EProviders.CREDENTIALS, {
-        redirect: false,
-        ...userData,
-      });
-
-      result?.ok
-        ? setNotification(getContentNotification(ERequestStatus.SUCCESS))
-        : setNotification(
-            getContentNotification(
-              ERequestStatus.ERROR,
-              result?.error ? result.error : undefined
-            )
-          );
-    } else {
-      postData('api/user', userData as IUser, setNotification);
     }
   };
 

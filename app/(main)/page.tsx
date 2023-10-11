@@ -3,7 +3,7 @@ import ProjectsSection from '@/app/components/layout/projects/ProjectsSection';
 import CertSection from '@/app/components/layout/cert/CertSection';
 import Footer from '../components/layout/footer/Footer';
 
-import { getContent } from '../lib/utils/helpers/client.helpers';
+import { getContent } from '../lib/utils/helpers/getContent';
 
 import styles from './page.module.sass';
 

@@ -1,38 +1,35 @@
 import User from '../../models/userModel';
 
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { sendResponseError } from '../../lib/utils/helpers/api.helpers';
-import { hashPassword } from '@/app/lib/utils/helpers/auth.helpers';
-import { validateData } from '@/app/lib/utils/helpers/data-validation.helpers';
+import { hashPassword } from '@/app/lib/utils/helpers/bcrypt.helpers';
+import { sendResponseError } from '@/app/lib/utils/helpers/error-handling.helpers';
 
-import { EErrorMessage } from '@/types/enums.types';
+import { ZUserDataValidator } from '@/types/zod';
 
 export const POST: TRouteHandler = async (req, res) => {
-  const { name, password } = await req.json();
-
-  if (!validateData({ name, password })) {
-    return sendResponseError(400, EErrorMessage.INPUT);
-  }
-
-  const hashedPassword = await hashPassword(password);
-
-  const userData = {
-    name,
-    password: hashedPassword,
-  };
+  const initialUserData = await req.json();
 
   try {
+    const initialUserDataParsed = ZUserDataValidator.parse(initialUserData);
+
+    const hashedPassword = await hashPassword(initialUserDataParsed.password);
+
+    const userData = {
+      name: initialUserDataParsed.name,
+      password: hashedPassword,
+    };
+
     await connectToDB();
-  } catch (error) {
-    return sendResponseError(500, EErrorMessage.DB);
+
+    const response = await User.create(userData);
+
+    closeConnection();
+
+    return Response.json(
+      { status: 'success', user: response.name },
+      { status: 201 }
+    );
+  } catch (error: any) {
+    return sendResponseError(error);
   }
-
-  const response = await User.create(userData);
-
-  closeConnection();
-
-  return Response.json(
-    { status: 'success', user: response.name },
-    { status: 201 }
-  );
 };

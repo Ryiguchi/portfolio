@@ -2,79 +2,25 @@ import { NextRequest, NextResponse } from 'next/server';
 import { FC } from 'react';
 import { ERequestStatus } from './enums.types';
 import { Document } from 'mongoose';
+import { z } from 'zod';
+import {
+  ZAboutDataValidator,
+  ZCertDataValidator,
+  ZProjectDataValidator,
+  ZUserDataValidator,
+} from './zod';
 
 export {};
 
 declare global {
-  interface IAboutModel extends Document {
-    text: string[];
-  }
-  // CONTENT
-  interface IUser {
-    name: string;
-    password: string;
-  }
+  type TProjectData = z.infer<typeof ZProjectDataValidator>;
+  type TCertificateData = z.infer<typeof ZCertDataValidator>;
+  type TAboutData = z.infer<typeof ZAboutDataValidator>;
+  type TUserData = z.infer<typeof ZUserDataValidator>;
 
-  interface ICertificateData {
-    date: string;
-    title: string;
-    issuer: string;
-    duration: string;
-    description: string;
-    skills: string[];
-    url: string;
-  }
-
-  type IAboutData = {
-    text: string[];
-  };
-
-  interface IProjectData {
-    image: string;
-    desktopImg: string;
-    title: string;
-    description: string;
-    skills: string[];
-    url: string;
-  }
-
-  interface IContentData {
-    certs: ICertificateData[];
-    about: string[];
-    projects: IProjectData[];
-  }
-
-  // OPTIONAL CONTENT
-  interface ICertificateDataOptional {
-    date?: string;
-    title?: string;
-    issuer?: string;
-    duration?: string;
-    description?: string;
-    skills?: string[];
-    url?: string;
-  }
-
-  type IAboutDataOptional = {
-    text?: string[];
-  };
-
-  interface IProjectDataOptional {
-    image?: string;
-    desktopImg?: string;
-    title?: string;
-    description?: string;
-    skills?: string[];
-    url?: string;
-  }
-
-  interface IUserOptional {
-    name?: string;
-    password?: string;
-  }
-
-  // NOTIFICATION
-
+  interface IAboutDocument extends Document, TAboutData {}
+  interface IProjectDocument extends Document, TProjectData {}
+  interface ICertDocument extends Document, TCertificateData {}
   interface INotification {
     status: ERequestStatus;
     title: string;

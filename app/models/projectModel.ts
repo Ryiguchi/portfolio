@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
 
-interface IProjectDocument extends mongoose.Document, IProjectData {}
-
 const projectSchema = new mongoose.Schema<IProjectDocument>({
-  image: String,
+  mobileImg: String,
   desktopImg: String,
   title: String,
   description: String,

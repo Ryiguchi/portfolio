@@ -6,7 +6,7 @@ import '../section.sass';
 import type { FC } from 'react';
 
 type Props = {
-  certs: ICertificateData[];
+  certs: TCertificateData[];
 };
 
 const CertSection: FC<Props> = ({ certs }) => {

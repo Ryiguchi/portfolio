@@ -6,7 +6,7 @@ import styles from './Course.module.sass';
 import type { FC } from 'react';
 
 type Props = {
-  cert: ICertificateData;
+  cert: TCertificateData;
 };
 
 const Course: FC<Props> = ({ cert }) => {
