@@ -1,7 +1,6 @@
 import { useContext, useRef } from 'react';
 
 import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
-import { formatToArray } from '@/app/lib/utils/helpers/format.helpers';
 import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
 import NotificationContext from '@/store/notification.context';
@@ -42,7 +41,7 @@ const CertForm: FC = () => {
       issuer,
       duration,
       description,
-      skills: formatToArray(skills),
+      skills,
       url,
     };
 

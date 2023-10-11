@@ -1,6 +1,5 @@
 import { useContext, useRef } from 'react';
 
-import { formatToArray } from '@/app/lib/utils/helpers/format.helpers';
 import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
 import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
@@ -32,7 +31,7 @@ const ProjectForm: FC = () => {
       desktopImg: desktopImageInputRef.current?.value,
       title: titleInputRef.current?.value,
       description: descriptionInputRef.current?.value,
-      skills: formatToArray(skillsInputRef.current?.value),
+      skills: skillsInputRef.current?.value,
       url: urlInputRef.current?.value,
     };
 

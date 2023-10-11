@@ -3,7 +3,6 @@
 import { useContext, useRef } from 'react';
 
 import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
-import { formatToArray } from '@/app/lib/utils/helpers/format.helpers';
 import { postData } from '@/app/lib/utils/helpers/postData.helpers';
 
 import NotificationContext from '@/store/notification.context';
@@ -24,9 +23,9 @@ const AboutForm: FC = () => {
 
     setNotification(getContentNotification(ERequestStatus.PENDING));
 
-    const textInput = textInputRef.current?.value;
-
-    const aboutData = { text: formatToArray(textInput) };
+    const aboutData = {
+      text: textInputRef.current?.value,
+    };
 
     try {
       const aboutDataParsed = ZAboutDataValidator.parse(aboutData);

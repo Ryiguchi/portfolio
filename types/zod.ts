@@ -1,32 +1,48 @@
 import { z } from 'zod';
 
+//helpers
+const transformArray = (value: string | string[]) => {
+  if (typeof value === 'string') {
+    return value.split('**');
+  } else {
+    return value;
+  }
+};
+
+const arrayValidator = z
+  .string()
+  .min(1)
+  .or(z.array(z.string().min(1)).nonempty())
+  .transform(transformArray);
+
+const nonEmptyString = z.string().min(1);
+
+// DATA VALIDATORS
 export const ZProjectDataValidator = z.object({
-  mobileImg: z
-    .string()
-    .min(1)
-    .includes('.', { message: 'Image names must include the extension' }),
-  desktopImg: z
-    .string()
-    .min(1)
-    .includes('.', { message: 'Image names must include the extension' }),
-  title: z.string().min(1),
-  description: z.string().min(1),
-  skills: z.string().min(1).array().nonempty(),
+  mobileImg: nonEmptyString.includes('.', {
+    message: 'Image names must include the extension',
+  }),
+  desktopImg: nonEmptyString.includes('.', {
+    message: 'Image names must include the extension',
+  }),
+  title: nonEmptyString,
+  description: nonEmptyString,
+  skills: arrayValidator,
   url: z.string().url(),
 });
 
 export const ZCertDataValidator = z.object({
-  date: z.string().min(1),
-  title: z.string().min(1),
-  issuer: z.string().min(1),
-  duration: z.string().min(1),
-  description: z.string().min(1),
-  skills: z.string().min(1).array().nonempty(),
+  date: nonEmptyString,
+  title: nonEmptyString,
+  issuer: nonEmptyString,
+  duration: nonEmptyString,
+  description: nonEmptyString,
+  skills: arrayValidator,
   url: z.string().url(),
 });
 
 export const ZAboutDataValidator = z.object({
-  text: z.string().min(1).array().nonempty(),
+  text: arrayValidator,
 });
 
 export const ZUserDataValidator = z.object({
@@ -34,6 +50,5 @@ export const ZUserDataValidator = z.object({
   password: z.string().min(8),
 });
 
-export const ZArrayValidator = z.string().min(1).array().nonempty();
 export const ZProjectsValidator = ZProjectDataValidator.array().nonempty();
 export const ZCertsValidator = ZCertDataValidator.array().nonempty();

@@ -5,7 +5,7 @@ import Project from '@/app/models/projectModel';
 import { EErrorMessage } from '@/types/enums.types';
 import { closeConnection, connectToDB } from '../db';
 import {
-  ZArrayValidator,
+  ZAboutDataValidator,
   ZCertsValidator,
   ZProjectsValidator,
 } from '@/types/zod';
@@ -21,12 +21,12 @@ export const getContent = async () => {
   closeConnection();
 
   try {
-    const aboutParsed = ZArrayValidator.parse(aboutText[0].text);
+    const aboutParsed = ZAboutDataValidator.parse(aboutText[0]);
     const certsParsed = ZCertsValidator.parse(certs);
     const projectsParsed = ZProjectsValidator.parse(projects);
 
     return {
-      about: aboutParsed,
+      about: aboutParsed.text,
       certs: certsParsed,
       projects: projectsParsed,
     };
