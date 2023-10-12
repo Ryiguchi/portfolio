@@ -8,7 +8,7 @@ import AdminHeader from '@/app/components/admin/AdminHeader';
 import { AdminPageContextProvider } from '@/lib/store/adminPage.context';
 import { NotificationContextProvider } from '@/lib/store/notification.context';
 
-import { inter } from '@/lib/config/fonts.config';
+import { inter } from '../../../lib/config/fonts.config';
 
 import '../../../lib/sass/globals.sass';
 
