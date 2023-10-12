@@ -1,10 +1,9 @@
-import About from '@/app/models/aboutModel';
+import About from '@/lib/models/aboutModel';
 
-import { closeConnection, connectToDB } from '@/app/lib/utils/db';
+import { sendResponseError } from '@/lib/helpers/error-handling.helpers';
+import { closeConnection, connectToDB } from '@/lib/helpers/db';
 
-import { sendResponseError } from '@/app/lib/utils/helpers/error-handling.helpers';
-
-import { ZAboutDataValidator } from '@/types/zod';
+import { ZAboutDataValidator } from '@/lib/types/zod';
 
 export const POST: TRouteHandler = async req => {
   const aboutData = await req.json();

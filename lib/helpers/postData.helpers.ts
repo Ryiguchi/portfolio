@@ -1,6 +1,6 @@
 import { getContentNotification } from './notification.helpers';
 
-import { ERequestStatus } from '@/types/enums.types';
+import { ERequestStatus } from '@/lib/types/enums.types';
 import type { SetStateAction } from 'react';
 
 export const baseUrl = process.env.BASE_URL;

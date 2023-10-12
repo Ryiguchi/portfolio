@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styles from './Notification.module.sass';
 
 import type { FC } from 'react';
-import { ERequestStatus } from '@/types/enums.types';
+import { ERequestStatus } from '@/lib/types/enums.types';
 
 type Props = { notification: INotification };
 

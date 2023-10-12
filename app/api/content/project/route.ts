@@ -1,10 +1,9 @@
-import Project from '@/app/models/projectModel';
+import Project from '@/lib/models/projectModel';
 
-import { closeConnection, connectToDB } from '@/app/lib/utils/db';
+import { sendResponseError } from '@/lib/helpers/error-handling.helpers';
+import { closeConnection, connectToDB } from '@/lib/helpers/db';
 
-import { sendResponseError } from '@/app/lib/utils/helpers/error-handling.helpers';
-
-import { ZProjectDataValidator } from '@/types/zod';
+import { ZProjectDataValidator } from '@/lib/types/zod';
 
 export const POST: TRouteHandler = async (req, res) => {
   const projectData = await req.json();

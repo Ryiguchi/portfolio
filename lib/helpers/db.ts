@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
-import { CustomError } from './helpers/error-handling.helpers';
+import { CustomError } from './error-handling.helpers';
 
-import { EErrorMessage } from '@/types/enums.types';
+import { EErrorMessage } from '@/lib/types/enums.types';
 
 export const connectToDB = async () => {
   try {

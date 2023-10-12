@@ -1,10 +1,9 @@
-import Cert from '@/app/models/certModel';
+import Cert from '@/lib/models/certModel';
 
-import { closeConnection, connectToDB } from '@/app/lib/utils/db';
+import { sendResponseError } from '@/lib/helpers/error-handling.helpers';
+import { closeConnection, connectToDB } from '@/lib/helpers/db';
 
-import { sendResponseError } from '@/app/lib/utils/helpers/error-handling.helpers';
-
-import { ZCertDataValidator } from '@/types/zod';
+import { ZCertDataValidator } from '@/lib/types/zod';
 
 export const POST: TRouteHandler = async req => {
   const certData = await req.json();

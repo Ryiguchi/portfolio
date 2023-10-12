@@ -1,4 +1,4 @@
-import { ERequestStatus } from '@/types/enums.types';
+import { ERequestStatus } from '@/lib/types/enums.types';
 import { createContext, useState } from 'react';
 
 import type { SetStateAction } from 'react';

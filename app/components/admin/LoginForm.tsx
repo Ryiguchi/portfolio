@@ -2,17 +2,18 @@
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
+import { z } from 'zod';
 
-import { postData } from '@/app/lib/utils/helpers/postData.helpers';
+import NotificationContext from '@/lib/store/notification.context';
+
+import { getContentNotification } from '@/lib/helpers/notification.helpers';
+import { postData } from '@/lib/helpers/postData.helpers';
 
 import styles from './Form.module.sass';
 
 import type { FC, FormEvent } from 'react';
-import NotificationContext from '@/store/notification.context';
-import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
-import { EProviders, ERequestStatus } from '@/types/enums.types';
-import { ZUserDataValidator } from '@/types/zod';
-import { z } from 'zod';
+import { EProviders, ERequestStatus } from '@/lib/types/enums.types';
+import { ZUserDataValidator } from '@/lib/types/zod';
 
 const LoginForm: FC = () => {
   const { setNotification } = useContext(NotificationContext);

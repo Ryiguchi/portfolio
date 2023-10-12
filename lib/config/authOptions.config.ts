@@ -1,14 +1,14 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import 'dotenv/config';
 
-import User from '@/app/models/userModel';
+import User from '@/lib/models/userModel';
 
-import { closeConnection, connectToDB } from '@/app/lib/utils/db';
+import { closeConnection, connectToDB } from '../helpers/db';
 
 import type { AuthOptions, User as AuthUser } from 'next-auth';
-import { EErrorMessage } from '@/types/enums.types';
-import { ZUserDataValidator } from '@/types/zod';
-import { verifyPassword } from './bcrypt.helpers';
+import { EErrorMessage } from '@/lib/types/enums.types';
+import { ZUserDataValidator } from '@/lib/types/zod';
+import { verifyPassword } from '../helpers/bcrypt.helpers';
 
 export const authOptions: AuthOptions = {
   providers: [

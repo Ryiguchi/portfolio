@@ -2,16 +2,16 @@
 
 import { useContext, useRef } from 'react';
 
-import { getContentNotification } from '@/app/lib/utils/helpers/notification.helpers';
-import { postData } from '@/app/lib/utils/helpers/postData.helpers';
+import NotificationContext from '@/lib/store/notification.context';
 
-import NotificationContext from '@/store/notification.context';
+import { getContentNotification } from '@/lib/helpers/notification.helpers';
+import { postData } from '@/lib/helpers/postData.helpers';
 
 import styles from './Form.module.sass';
 
 import type { FC, FormEvent } from 'react';
-import { ERequestStatus } from '@/types/enums.types';
-import { ZAboutDataValidator } from '@/types/zod';
+import { ERequestStatus } from '@/lib/types/enums.types';
+import { ZAboutDataValidator } from '@/lib/types/zod';
 
 const AboutForm: FC = () => {
   const { setNotification } = useContext(NotificationContext);

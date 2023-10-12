@@ -7,8 +7,9 @@ import { Analytics } from '@vercel/analytics/react';
 import FlashLight from '../components/common/FlashLight';
 import Header from '../components/layout/header/Header';
 
-import { inter } from '../lib/utils/helpers/fonts.helpers';
-import '../globals.sass';
+import { inter } from '../../lib/config/fonts.config';
+
+import '../../lib/sass/globals.sass';
 import styles from './RootLayout.module.sass';
 
 import type { FC } from 'react';

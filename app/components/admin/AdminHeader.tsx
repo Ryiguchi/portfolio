@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 
-import AdminPageContext, { EPages } from '@/store/adminPage.context';
+import AdminPageContext, { EPages } from '@/lib/store/adminPage.context';
 
 import styles from './AdminHeader.module.sass';
 

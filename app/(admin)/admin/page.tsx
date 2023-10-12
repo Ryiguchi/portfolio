@@ -9,8 +9,8 @@ import AboutForm from '@/app/components/admin/AboutForm';
 import LoginForm from '@/app/components/admin/LoginForm';
 import Notification from '@/app/components/common/Notification';
 
-import AdminPageContext, { EPages } from '@/store/adminPage.context';
-import NotificationContext from '@/store/notification.context';
+import AdminPageContext, { EPages } from '@/lib/store/adminPage.context';
+import NotificationContext from '@/lib/store/notification.context';
 
 import styles from './page.module.sass';
 

@@ -50,5 +50,6 @@ export const ZUserDataValidator = z.object({
   password: z.string().min(8),
 });
 
+// Arrays of Data
 export const ZProjectsValidator = ZProjectDataValidator.array().nonempty();
 export const ZCertsValidator = ZCertDataValidator.array().nonempty();

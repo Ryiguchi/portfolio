@@ -5,13 +5,14 @@ import type { Session } from 'next-auth';
 
 import AdminHeader from '@/app/components/admin/AdminHeader';
 
-import { AdminPageContextProvider } from '@/store/adminPage.context';
+import { AdminPageContextProvider } from '@/lib/store/adminPage.context';
+import { NotificationContextProvider } from '@/lib/store/notification.context';
 
-import '../../globals.sass';
+import { inter } from '@/lib/config/fonts.config';
+
+import '../../../lib/sass/globals.sass';
 
 import type { FC } from 'react';
-import { NotificationContextProvider } from '@/store/notification.context';
-import { inter } from '@/app/lib/utils/helpers/fonts.helpers';
 
 type Props = {
   children: React.ReactNode;

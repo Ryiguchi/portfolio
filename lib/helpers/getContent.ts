@@ -1,14 +1,14 @@
-import About from '@/app/models/aboutModel';
-import Cert from '@/app/models/certModel';
-import Project from '@/app/models/projectModel';
+import About from '@/lib/models/aboutModel';
+import Cert from '@/lib/models/certModel';
+import Project from '@/lib/models/projectModel';
 
-import { EErrorMessage } from '@/types/enums.types';
-import { closeConnection, connectToDB } from '../db';
+import { EErrorMessage } from '@/lib/types/enums.types';
+import { closeConnection, connectToDB } from './db';
 import {
   ZAboutDataValidator,
   ZCertsValidator,
   ZProjectsValidator,
-} from '@/types/zod';
+} from '@/lib/types/zod';
 import { zodErrorHandler } from './error-handling.helpers';
 
 export const getContent = async () => {

@@ -1,10 +1,10 @@
-import User from '../../models/userModel';
+import User from '../../../lib/models/userModel';
 
 import { closeConnection, connectToDB } from '@/app/lib/utils/db';
-import { hashPassword } from '@/app/lib/utils/helpers/bcrypt.helpers';
-import { sendResponseError } from '@/app/lib/utils/helpers/error-handling.helpers';
+import { hashPassword } from '@/lib/helpers/bcrypt.helpers';
+import { sendResponseError } from '@/lib/helpers/error-handling.helpers';
 
-import { ZUserDataValidator } from '@/types/zod';
+import { ZUserDataValidator } from '@/lib/types/zod';
 
 export const POST: TRouteHandler = async (req, res) => {
   const initialUserData = await req.json();

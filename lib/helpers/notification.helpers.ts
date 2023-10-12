@@ -1,4 +1,4 @@
-import { ERequestStatus } from '@/types/enums.types';
+import { ERequestStatus } from '@/lib/types/enums.types';
 
 export const getContentNotification = (
   status: ERequestStatus | undefined,

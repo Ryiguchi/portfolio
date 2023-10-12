@@ -1,4 +1,4 @@
-import { EErrorMessage } from '@/types/enums.types';
+import { EErrorMessage } from '@/lib/types/enums.types';
 import { z } from 'zod';
 
 export class CustomError extends Error {
