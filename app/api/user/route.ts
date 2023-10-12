@@ -1,7 +1,7 @@
 import User from '../../../lib/models/userModel';
 
-import { closeConnection, connectToDB } from '@/app/lib/utils/db';
 import { hashPassword } from '@/lib/helpers/bcrypt.helpers';
+import { closeConnection, connectToDB } from '@/lib/helpers/db';
 import { sendResponseError } from '@/lib/helpers/error-handling.helpers';
 
 import { ZUserDataValidator } from '@/lib/types/zod';
