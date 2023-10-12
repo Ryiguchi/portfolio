@@ -18,4 +18,4 @@ This is [my portfolio page](https://ryaniguchi.com). The design is a replica of 
 
 ## Screenshots
 
-![Main screen]()
+![Main screen](https://github.com/Ryiguchi/portfolio/blob/main/public/images/main-screen.png)
