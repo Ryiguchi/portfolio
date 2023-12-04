@@ -17,8 +17,12 @@ export const getContent = async () => {
   const aboutText = await About.find();
   const certs = await Cert.find();
   const projects = await Project.find();
+  
 
   closeConnection();
+
+  console.log("[CERTS]", certs);
+  console.log("[PROJECTS]", projects);
 
   try {
     const aboutParsed = ZAboutDataValidator.parse(aboutText[0]);
