@@ -18,11 +18,18 @@ export const revalidate = 3600;
 const Home: FC = async () => {
   const { about, certs, projects } = await getContent();
 
+  const sortedCerts = certs.sort((a, b) => {
+    if (a.date > b.date) return -1;
+    if (a.date < b.date) return 1;
+
+    return 0;
+  });
+
   return (
     <main className={styles.main}>
       <AboutSection text={about} />
       <ProjectsSection projects={projects} />
-      <CertSection certs={certs} />
+      <CertSection certs={sortedCerts} />
       <Footer />
     </main>
   );

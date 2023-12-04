@@ -10,6 +10,8 @@ type Props = {
 };
 
 const CertSection: FC<Props> = ({ certs }) => {
+  console.log('CERTS', certs);
+
   return (
     <section className="section" id="certificates">
       <SectionHeader section="certificates" />
